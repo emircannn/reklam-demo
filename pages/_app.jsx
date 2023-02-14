@@ -4,9 +4,17 @@ import "slick-carousel/slick/slick-theme.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from "next-auth/react"
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
+import NProgress from "nprogress";
+import "../styles/globals.css";
+import "nprogress/nprogress.css";
+
+
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 
 function Loading() {
@@ -17,9 +25,9 @@ function Loading() {
     const handleStart = (url) => (url !== router.asPath) && setLoading(true);
     const handleComplate = (url) => (url === router.asPath) && setTimeout(() =>{setLoading(false)},1500);
 
-    router.events.on("routeChangeStart", handleStart)
-    router.events.on("routeChangeComplete", handleComplate)
-    router.events.on("routeChangeError", handleComplate)
+    router.events.on("routerChangeStart", handleStart)
+    router.events.on("routerChangeComplete", handleComplate)
+    router.events.on("routerChangeError", handleComplate)
 
     return () => {
     router.events.off("routeChangeStart", handleStart)
