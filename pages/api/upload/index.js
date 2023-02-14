@@ -13,7 +13,7 @@ export default async function Upload(req, res, next) {
         maxFileSize: 100 * 1024 * 1024, // 100mb
         maxFieldsSize: 100 * 1024* 1024, // 100mb
         filename: function(name, ext, part, form) {
-            return name + Date.now() + ext
+            return name + ext
         }
     }
     const form = new formidable.IncomingForm(optinos)

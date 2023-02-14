@@ -17,7 +17,7 @@ const Admin = () => {
         const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/admin`, values)
         if (res.status === 200) {
             actions.resetForm();
-            toast.success("Giriş İşlemi Başarılı!")
+            toast.success("Giriş İşlemi Başarılı!", {autoClose: 1000})
             push("abika/profil")
         }
     } catch (err) {
