@@ -65,7 +65,8 @@ const Header = () => {
 
       <div className='flex flex-col items-center w-full p-2 relative'>
       <div className='w-full flex items-center justify-center cursor-pointer bg-black py-4'>
-          <Image alt='logo' src="/images/logo.png" className='w-[120px]' width={500} height={500} priority/>
+          {/* <Image alt='logo' src="/images/logo.png" className='w-[120px]' width={500} height={500} priority/> */}
+          <h2 className='uppercase font-bold tracking-wider text-white text-xl text-center'>Logo</h2>
       </div>
 
       <nav className='mt-32'>
@@ -89,7 +90,7 @@ const Header = () => {
         <button className='button mt-12'>Giriş Yap</button>
         </Link>
         
-        <button onClick={() => setMenu(false)} className='bg-primary p-2 absolute top-2 right-2'><AiOutlineClose className='text-black' size={20}/></button>
+        <button onClick={() => setMenu(false)} className='bg-primary p-2 absolute top-2 right-2'><AiOutlineClose className='text-white' size={20}/></button>
       </div>
       </div>
       </OutsideClickHandler>

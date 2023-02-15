@@ -11,15 +11,16 @@ import axios from 'axios'
 
 const index = ({product}) => {
 
-    const fiyat = 40
-
+    const [price, setPrice] = useState(product.properties[0].price);
+    const [afprint, setAfprint] = useState(product.afterprint[0]?.afprice);
+    const [wage, setWage] = useState(price)
     const [selectedImage, setSelectedImage] = useState(product.img[0]);
     const [zoom, setZoom] = useState(false);
     const [width, setWidth] = useState(0)
     const [height, setHeight] = useState(0)
     const [amount, setAmount] = useState(0)
     const [tab, setTab] = useState(0)
-    const [selectedRadio, setSelectedRadio] = useState("");
+    const [selectedRadio, setSelectedRadio] = useState("0");
 
 
     const handleOptionChange = (event) => {
@@ -27,8 +28,13 @@ const index = ({product}) => {
     };
     
     const calculate = () => {
-            setAmount((fiyat*(width/100)*(height/100)))
+        if(product.price){
+            setWage(price + (afprint ? afprint : 0))  
+        }else{
+            setAmount(price*(width/100)*(height/100) + (afprint)) 
+        }
     }
+
 
   return (
     <div>
@@ -62,20 +68,20 @@ const index = ({product}) => {
 
                     <div className='mt-8'>
                         <h3 className='uppercase my-2 font-semibold text-xl'>Ürün Özelliği</h3>
-                    <select className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
-                        {product.properties.map((prop) => (<option key={prop._id} value="">{prop.name}</option>))}
+                    <select onChange={(e) => setPrice(parseInt(e.target.value))} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
+                        {product.properties.map((prop) => (<option key={prop._id} value={prop.price}>{prop.name}</option>))}
                     </select>
                     </div>
 
 
                     {product.afterprint.length > 0 && <div className='mt-8'>
                         <h3 className='uppercase my-2 font-semibold text-xl'>İmalat Sonrası</h3>
-                    <select className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
-                    {product.afterprint.map((print) => (<option key={print._id} value="">{print.afname}</option>))}
+                    <select onChange={(e) => setAfprint(parseInt(e.target.value))} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
+                    {product.afterprint.map((print) => (<option key={print._id} value={print.afprice}>{print.afname} - {print.afprice} TL</option>))}
                     </select>
                     </div>}
 
-                    {product.price ? <h4 className='!mt-8 font-medium text-xl'>Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4> : <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4>}
+                    {product.price ? <h4 className='!mt-8 font-medium text-xl'>Fiyatı: <span className='font-bold'>{price}₺</span></h4> : <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{price}₺</span></h4>}
 
                     {product.price ? null : <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
                     <label className='relative block cursor-text'>
@@ -90,9 +96,9 @@ const index = ({product}) => {
                     </div>}
                     
 
-                    <div className='mt-8'>
-                        <span className='font-semibold text-xl uppercase'>Tutar: <span className='font-bold'>{amount.toFixed(2)}₺</span></span>
-                    </div>
+                    {product.afterprint.length > 0 && product.price === false ? <div className='mt-8'>
+                        <span className='font-semibold text-xl uppercase'>Tutar: <span className='font-bold'>{product.price ? wage : amount}₺</span></span>
+                    </div> : null }
 
                     <div className='flex items-center justify-start gap-4 my-4'>
                     <label className='font-semibold text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
@@ -107,7 +113,7 @@ const index = ({product}) => {
                     }
 
                     <div className='flex items-center justify-center gap-4'>
-                    {product.price ? null : <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button>}
+                     {product.afterprint.length > 0 && product.price === false ? <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button> : null}
                     <button className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
                     </div>
                 </div>

@@ -43,9 +43,11 @@ const index = ({productList, categoryList}) => {
           <OutsideClickHandler onOutsideClick={()=> setShowCategories(false)}>
           <div className={`fixed top-0 ${showCategories ? "left-0" : "left-[-100%]"} duration-500 h-full w-[300px] bg-white z-30 p-4`}>
           <h3 className='font-bold uppercase text-lg text-primary border-b-2 border-primary text-center p-2 mb-2'>Kategoriler</h3>
-            <div className='bg-slate-200 w-full p-2 group hover:bg-primary duration-300 cursor-pointer shadow-lg'>
-              <h4 className='text-black font-semibold uppercase text-center group-hover:text-white duration-300'>Kategori 1</h4>
-            </div>
+          {categoryList.map((category ,index) => (
+                  <button key={category._id} onClick={() => {setActive(index), setProductLimit(3), setShowCategories(false)}} 
+                  className={`${active && "bg-primary text-white"} text-black hover:text-white font-bold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
+                  hover:bg-primary cursor-pointer shadow-lg`}>{category.title}</button>
+                ))}
 
             <button onClick={() => setShowCategories(false)} className='bg-primary p-2 rounded-xl absolute top-2 right-2'><AiOutlineClose className='text-white' size={20}/></button>
           </div>

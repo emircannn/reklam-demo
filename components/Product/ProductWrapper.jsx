@@ -14,8 +14,8 @@ const ProductWrapper = ({productList}) => {
       </div>
 
       <div className='w-full mt-10 flex items-center justify-center gap-4'>
-          {productList.length > 3 && <button onClick={() => setProductLimit(productLimit + 3)} className='button'>Daha Falza Göster</button> }
-          {productLimit > 3 && <button onClick={() => setProductLimit(productLimit - 3)} className='button'>Daha Az Göster</button> }
+          {productList.length > productLimit && <button onClick={() => setProductLimit(productLimit + 3)} className='button'>Daha Falza Göster</button> }
+          {productLimit > productList.length && <button onClick={() => setProductLimit(productLimit - 3)} className='button'>Daha Az Göster</button> }
           </div>
     </section>
   )
