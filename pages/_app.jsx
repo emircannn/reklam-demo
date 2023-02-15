@@ -4,18 +4,9 @@ import "slick-carousel/slick/slick-theme.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from "next-auth/react"
-import Router, { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { PropagateLoader } from 'react-spinners';
-import NProgress from "nprogress";
-import "../styles/globals.css";
-import "nprogress/nprogress.css";
-
-
-Router.events.on("routeChangeStart", () => NProgress.start());
-Router.events.on("routeChangeComplete", () => NProgress.done());
-Router.events.on("routeChangeError", () => NProgress.done());
-
 
 function Loading() {
   const router = useRouter()
