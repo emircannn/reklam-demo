@@ -62,12 +62,12 @@ const index = ({product}) => {
                 </div>
                 
                 <div className='w-1/2 max-md:w-full'>
-                    <h1 className='font-bold text-black uppercase text-2xl'>{product.title}</h1>
+                    <h1 className='font-bold text-black uppercase max-2xl:text-lg text-2xl'>{product.title}</h1>
 
-                    <p className='font-semibold text-black/50'>{product.desc}</p>
+                    <p className='font-semibold max-2xl:text-sm text-black/50'>{product.desc}</p>
 
                     <div className='mt-8'>
-                        <h3 className='uppercase my-2 font-semibold text-xl'>Ürün Özelliği</h3>
+                        <h3 className='uppercase max-2xl:text-base my-2 font-semibold text-xl'>Ürün Özelliği</h3>
                     <select onChange={(e) => setPrice(parseInt(e.target.value))} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
                         {product.properties.map((prop) => (<option key={prop._id} value={prop.price}>{prop.name}</option>))}
                     </select>
@@ -75,13 +75,13 @@ const index = ({product}) => {
 
 
                     {product.afterprint.length > 0 && <div className='mt-8'>
-                        <h3 className='uppercase my-2 font-semibold text-xl'>İmalat Sonrası</h3>
-                    <select onChange={(e) => setAfprint(parseInt(e.target.value))} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
+                        <h3 className='uppercase max-2xl:text-base my-2 font-semibold text-xl'>İmalat Sonrası</h3>
+                    <select onChange={(e) => setAfprint(parseInt(e.target.value))} className='outline-none px-4 py-2 max-2xl:text-sm bg-primary text-white font-semibold'>
                     {product.afterprint.map((print) => (<option key={print._id} value={print.afprice}>{print.afname} - {print.afprice} TL</option>))}
                     </select>
                     </div>}
 
-                    {product.price ? <h4 className='!mt-8 font-medium text-xl'>Fiyatı: <span className='font-bold'>{price}₺</span></h4> : <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{price}₺</span></h4>}
+                    {product.price ? <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>Fiyatı: <span className='font-bold'>{price}₺</span></h4> : <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>M² Fiyatı: <span className='font-bold'>{price}₺</span></h4>}
 
                     {product.price ? null : <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
                     <label className='relative block cursor-text'>
@@ -97,12 +97,12 @@ const index = ({product}) => {
                     
 
                     {product.afterprint.length > 0 && product.price === false ? <div className='mt-8'>
-                        <span className='font-semibold text-xl uppercase'>Tutar: <span className='font-bold'>{product.price ? wage : amount}₺</span></span>
+                        <span className='font-semibold text-xl max-2xl:text-sm uppercase'>Tutar: <span className='font-bold'>{product.price ? wage : amount}₺</span></span>
                     </div> : null }
 
                     <div className='flex items-center justify-start gap-4 my-4'>
-                    <label className='font-semibold text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
-                    <label className='font-semibold text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
+                    <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
+                    <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
                     </div>
 
                     {
@@ -121,15 +121,15 @@ const index = ({product}) => {
 
             <div className='flex items-center justify-center flex-col pt-8 mt-4 border-t-2 w-[75%] max-md:w-full mx-auto border-t-primary'>
                 <div className='flex items-center justify-center gap-2'>
-                    <span onClick={() => setTab(0)} className={`font-semibold text-lg uppercase cursor-pointer ${tab === 0 && "bg-primary text-white"} duration-300 px-4 py-2`}>Açıklama</span>
-                    <span onClick={() => setTab(1)} className={`font-semibold text-lg uppercase cursor-pointer ${tab === 1 && "bg-primary text-white"} duration-300 px-4 py-2`}>Teknik Bilgiler</span>
+                    <span onClick={() => setTab(0)} className={`font-semibold text-lg max-2xl:text-base uppercase cursor-pointer ${tab === 0 && "bg-primary text-white"} duration-300 px-4 py-2`}>Açıklama</span>
+                    <span onClick={() => setTab(1)} className={`font-semibold text-lg max-2xl:text-base uppercase cursor-pointer ${tab === 1 && "bg-primary text-white"} duration-300 px-4 py-2`}>Teknik Bilgiler</span>
                 </div>
 
                 {tab === 0 && <div className='w-full mt-4 duration-300'>
                     {product.prodetails.map((detail) => (
                         <div key={detail._id} className='w-full'>
-                        <h3 className='font-bold my-2 uppercase text-xl max-md:text-base'>{detail.dtitle}</h3>
-                        <p className='text-black/50 font-medium max-md:text-sm'>{detail.dparagraph}</p>
+                        <h3 className='font-bold my-2 uppercase text-xl max-2xln:text-base'>{detail.dtitle}</h3>
+                        <p className='text-black/50 font-medium max-2xl:text-sm'>{detail.dparagraph}</p>
                         </div>
                     ))}
                 </div>}
@@ -138,8 +138,8 @@ const index = ({product}) => {
                 <div className='w-full mt-4 duration-300 flex items-center justify-start flex-col p-2'>
                     {product.info.map((info) => (
                         <div key={info._id} className='flex items-center justify-start w-full border-y border-x border-black/30'>
-                        <h3 className='border-r-2 h-full p-2 border-black/30 max-md:text-sm font-bold'>{info.ititle}</h3>
-                        <p className='font-semibold text-black/50 ml-2 max-md:text-xs'>{info.iparagraph}</p>
+                        <h3 className='border-r-2 h-full p-2 border-black/30 max-2xl:text-sm font-bold'>{info.ititle}</h3>
+                        <p className='font-semibold text-black/50 ml-2 max-2xl:text-xs'>{info.iparagraph}</p>
                         </div>
                     ))}
                 </div>}
@@ -149,29 +149,29 @@ const index = ({product}) => {
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BsTruck size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase text-center'>Ücretsiz Kargo</span>
-                        <span className='text-black/50 font-medium text-center'>500 TL üzeri kargo bedava</span>
+                        <span className='font-semibold max-2xl:text-sm uppercase text-center'>Ücretsiz Kargo</span>
+                        <span className='text-black/50 max-2xl:text-sm font-medium text-center'>500 TL üzeri kargo bedava</span>
                         </div>
                     </div>
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BiSupport size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase text-center'>Uzmanlarla Birebir Görüşme</span>
-                        <span className='text-black/50 font-medium text-center'>0552 577 93 32 (Whatsapp Destek)</span>
+                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Uzmanlarla Birebir Görüşme</span>
+                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>0552 577 93 32 (Whatsapp Destek)</span>
                         </div>
                     </div>
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BsClockFill size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase text-center'>Hızlı Kargo</span>
-                        <span className='text-black/50 font-medium text-center'>Standart ürünler 48 saate kargoda</span>
+                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Hızlı Kargo</span>
+                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>Standart ürünler 48 saate kargoda</span>
                         </div>
                     </div>
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BiHappyAlt size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase text-center'>Mutlu Müşteriler</span>
-                        <span className='text-black/50 font-medium text-center'>Siparişten teslimata kadar aktif iletişim</span>
+                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Mutlu Müşteriler</span>
+                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>Siparişten teslimata kadar aktif iletişim</span>
                         </div>
                     </div>
                 </div>
