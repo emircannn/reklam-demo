@@ -44,25 +44,25 @@ const Profil = () => {
         </Head>
             <div className='w-full flex items-center justify-center flex-col mt-16'>
             <Image priority className='w-[120px]' alt='' src="/images/admin.png" width={500} height={500}/>
-            <span className='font-bold text-2xl uppercase'>Admin</span>
+            <span className='font-bold text-2xl uppercase max-2xl:text-lg'>Admin</span>
             </div>
 
             <ul className='flex items-center justify-center flex-col w-full mt-8'>
                 <li onClick={() => setTab(0)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 0 && "bg-dark"}`}>
                     <FiClipboard size={20}/>
-                    <button className='uppercase font-medium text-lg'>Ürünler</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Ürünler</button>
                     </li>
                 <li onClick={() => setTab(1)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 1 && "bg-black"}`}>
                     <BiCategory size={20}/>
-                    <button className='uppercase font-medium text-lg'>Kategoriler</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Kategoriler</button>
                     </li>
                 <li onClick={() => setTab(2)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 2 && "bg-black"}`}>
                     <FaBox size={20}/>
-                    <button className='uppercase font-medium text-lg'>Siparişler</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Siparişler</button>
                     </li>
                 <li onClick={signOutAdmin} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 6 && "bg-black"}`}>
                     <RxExit size={20}/>
-                    <button className='uppercase font-medium text-lg'>Çıkış</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Çıkış</button>
                   </li>
             </ul>
         </div>

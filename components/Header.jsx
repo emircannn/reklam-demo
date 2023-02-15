@@ -30,16 +30,16 @@ const Header = () => {
         <nav className='max-md:hidden'>
           <ul className='flex items-center justify-center gap-4 font-medium'>
             <Link href='/'>
-            <li className='cursor-pointer hover:text-primary duration-300'>Ana Sayfa</li>
+            <li className='cursor-pointer hover:text-primary max-2xl:text-base duration-300'>Ana Sayfa</li>
             </Link>
             <Link href='/urunlerimiz'>
-            <li className='cursor-pointer hover:text-primary duration-300'>Ürünlerimiz</li>
+            <li className='cursor-pointer hover:text-primary max-2xl:text-base duration-300'>Ürünlerimiz</li>
             </Link>
             <Link href='/hakkimizda'>
-            <li className='cursor-pointer hover:text-primary duration-300'>Hakkımızda</li>
+            <li className='cursor-pointer hover:text-primary max-2xl:text-base duration-300'>Hakkımızda</li>
             </Link>
             <Link href='/iletisim'>
-            <li className='cursor-pointer hover:text-primary duration-300'>İletişim</li>
+            <li className='cursor-pointer hover:text-primary max-2xl:text-base duration-300'>İletişim</li>
             </Link>
             <button onClick={() => setSearch(true)} className='cursor-pointer hover:text-primary duration-300'><ImSearch/></button>
           </ul>
@@ -72,16 +72,16 @@ const Header = () => {
       <nav className='mt-32'>
           <ul className='flex items-center flex-col justify-center gap-8 text-lg'>
             <Link href='/'>
-            <li className='cursor-pointer uppercase font-bold hover:text-primary duration-300'>Ana Sayfa</li>
+            <li className='cursor-pointer uppercase font-bold hover:text-primary max-2xl:text-sm duration-300'>Ana Sayfa</li>
             </Link>
             <Link href='/urunlerimiz'>
-            <li className='cursor-pointer uppercase font-bold hover:text-primary duration-300'>Ürünlerimiz</li>
+            <li className='cursor-pointer uppercase font-bold hover:text-primary max-2xl:text-sm duration-300'>Ürünlerimiz</li>
             </Link>
             <Link href='/hakkimizda'>
-            <li className='cursor-pointer uppercase font-bold hover:text-primary duration-300'>Hakkımızda</li>
+            <li className='cursor-pointer uppercase font-bold hover:text-primary max-2xl:text-sm duration-300'>Hakkımızda</li>
             </Link>
             <Link href='/iletisim'>
-            <li className='cursor-pointer uppercase font-bold hover:text-primary duration-300'>İletişim</li>
+            <li className='cursor-pointer uppercase font-bold hover:text-primary max-2xl:text-sm duration-300'>İletişim</li>
             </Link>
           </ul>
         </nav>

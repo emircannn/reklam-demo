@@ -151,13 +151,13 @@ const metre = () => {
         <title>Ürün Ekleme</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-        <h1 className='font-bold text-2xl tracking-wide text-primary border-b-2 border-primary'>M² Fiyatlı Ürün Ekleme</h1>
+        <h1 className='font-bold text-2xl max-2xl:text-lg tracking-wide text-primary border-b-2 border-primary'>M² Fiyatlı Ürün Ekleme</h1>
         <div className='mt-8 flex gap-8 max-md:flex-col'>
 
           {/* Sol Taraf */}
             <div className='w-1/2 max-md:w-full'>
 
-            <h2 className='font-bold text-2xl tracking-wide text-primary'>Resim</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide text-primary'>Resim</h2>
             <div className='flex items-center justify-between flex-wrap gap-4 max-lg:justify-center mt-4'>
             <label className='flex flex-col items-center justify-center gap-4'>
             <Image alt='' className='w-[200px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl ? ImageUrl : '/images/upload.jpg'} />
@@ -178,13 +178,13 @@ const metre = () => {
             </label>
             </div>
 
-            <h2 className='font-bold text-2xl mt-4 tracking-wide text-primary'>Başlık</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg mt-4 tracking-wide text-primary'>Başlık</h2>
             <input type='text' onChange={(e) => setTitle(e.target.value)} placeholder='Ürün Başlığı...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
-            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>Kısa Açıklama</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Kısa Açıklama</h2>
             <textarea type='text' onChange={(e) => setDesc(e.target.value)} placeholder='Kısa Açıklama...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
-            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>Ürün Özelliği</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Ürün Özelliği</h2>
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
@@ -199,11 +199,11 @@ const metre = () => {
             {properties.map((item, index) => (
               <h4 onClick={() => {
                 setProperties(properties.filter((_,i) => i !== index))
-            }} key={index} className='font-semibold text-xl hover:text-primary duration-300 cursor-pointer'>{item.name} - <span className='font-bold'>Fiyatı : {item.price} TL</span></h4>
+            }} key={index} className='font-semibold text-xl max-2xl:text-base hover:text-primary duration-300 cursor-pointer'>{item.name} - <span className='font-bold'>Fiyatı : {item.price} TL</span></h4>
             ))}
             </div>
 
-            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>Baskı Sonrası</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Baskı Sonrası</h2>
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
@@ -216,7 +216,7 @@ const metre = () => {
             {afterprint.map((item, index) => (
               <h4 onClick={() => {
                 setAfterprint(afterprint.filter((_,i) => i !== index))
-            }} key={index} className='font-semibold text-xl hover:text-primary duration-300 cursor-pointer'>{item.afname} - <span className='font-bold'>Fiyatı : {item.afprice} TL</span></h4>
+            }} key={index} className='font-semibold max-2xl:text-base text-xl hover:text-primary duration-300 cursor-pointer'>{item.afname} - <span className='font-bold'>Fiyatı : {item.afprice} TL</span></h4>
             ))}
             </div>
 
@@ -228,7 +228,7 @@ const metre = () => {
             {/* Sag Taraf */}
             <div className='w-1/2 max-md:w-full'>
 
-            <h2 className='font-bold text-2xl tracking-wide text-primary'>Kategori Seç</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide text-primary'>Kategori Seç</h2>
 
             <div className='flex flex-col text-sm text-white'>
                   <span className='font-semibold'>Ürün Kategorisi</span>
@@ -241,7 +241,7 @@ const metre = () => {
                   </select>
             </div>
             
-            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>Detaylar</h2>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Detaylar</h2>
             <div className='mt-4'>
             <input type='text'name='dtitle' onChange={(e) =>setDetail({ ...detail, [e.target.name]: e.target.value })}  placeholder='Detay Başlğı...' className="h-12 border-2 border-primary outline-none px-4 peer w-full"/>
             <textarea type='text' name='dparagraph' onChange={(e) =>setDetail({ ...detail, [e.target.name]: e.target.value })}  placeholder='Detay Açıklaması...' className="h-16 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
@@ -251,15 +251,15 @@ const metre = () => {
               <div onClick={() => {
                 setProdetails(prodetails.filter((_,i) => i !== index))
             }} key={index} className='cursor-pointer hover:text-primary duration-300'>
-              <h3 className='font-bold text-2xl tracking-wide mt-4'>{item.dtitle}</h3>
-              <p className='mt-2 font-medium'>{item.dparagraph}</p>
+              <h3 className='font-bold text-2xl max-2xl:text-base tracking-wide mt-4'>{item.dtitle}</h3>
+              <p className='mt-2 max-2xl:text-base font-medium'>{item.dparagraph}</p>
               </div>
             ))}
 
             </div>
 
-            <h2 className='font-bold text-2xl tracking-wide mt-6 text-primary'>Teknik Bilgiler</h2>
-            <div className='mt-6'>
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-6 text-primary'>Teknik Bilgiler</h2>
+            <div className='mt-4'>
             <input type='text' name='ititle' onChange={(e) =>setTech({ ...tech, [e.target.name]: e.target.value })} placeholder='Teknik Bilgi Başlğı...' className="h-12 border-2 border-primary outline-none px-4 peer w-full"/>
             <textarea type='text' name='iparagraph' onChange={(e) =>setTech({ ...tech, [e.target.name]: e.target.value })} placeholder='Teknik Bilgi Açıklaması...' className="h-16 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             <button onClick={handleInfo} className='button mt-2 w-full'>Teknik Bilgi Ekle</button>
@@ -268,8 +268,8 @@ const metre = () => {
               <div onClick={() => {
                 setInfo(info.filter((_,i) => i !== index))
             }} key={index} className='cursor-pointer hover:text-primary duration-300'>
-              <h3 className='font-bold text-2xl tracking-wide mt-4'>{item.ititle}</h3>
-              <p className='mt-2 font-medium'>{item.iparagraph}</p>
+              <h3 className='font-bold max-2xl:text-base text-2xl tracking-wide mt-4'>{item.ititle}</h3>
+              <p className='mt-2 max-2xl:text-base font-medium'>{item.iparagraph}</p>
               </div>
             ))}
 

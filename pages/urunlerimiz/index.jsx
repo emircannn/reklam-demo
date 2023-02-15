@@ -30,7 +30,7 @@ const index = ({productList, categoryList}) => {
             <h3 className='font-bold uppercase text-lg text-primary border-b-2 border-primary p-2 mb-2'>Kategoriler</h3>
             {categoryList.map((category ,index) => (
                   <button key={category._id} onClick={() => {setActive(index), setProductLimit(3)}} 
-                  className={`${active && "bg-primary text-white"} text-black hover:text-white font-bold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
+                  className={`${active && "bg-primary text-white"} text-black max-2xl:text-sm hover:text-white font-semibold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
                   hover:bg-primary cursor-pointer shadow-lg`}>{category.title}</button>
                 ))}
           </div>
@@ -45,7 +45,7 @@ const index = ({productList, categoryList}) => {
           <h3 className='font-bold uppercase text-lg text-primary border-b-2 border-primary text-center p-2 mb-2'>Kategoriler</h3>
           {categoryList.map((category ,index) => (
                   <button key={category._id} onClick={() => {setActive(index), setProductLimit(3), setShowCategories(false)}} 
-                  className={`${active && "bg-primary text-white"} text-black hover:text-white font-bold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
+                  className={`${active && "bg-primary text-white"} text-black max-2xl:text-sm hover:text-white font-semibold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
                   hover:bg-primary cursor-pointer shadow-lg`}>{category.title}</button>
                 ))}
 

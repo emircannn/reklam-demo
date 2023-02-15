@@ -23,7 +23,6 @@ const ProductWrapper = () => {
   return (
     <section className='w-full mx-auto'>
 
-      <h2 className='font-bold uppercase text-2xl border-b-4 border-primary mb-8'>Ürünlerimiz</h2>
       <div className='grid grid-cols-3 place-content-center max-md:gap-4 gap-8 max-lg:grid-cols-2 max-sm:grid-cols-1'>
         
     {products.map((product) => (
@@ -36,10 +35,10 @@ const ProductWrapper = () => {
           </span>
       </div>
       <div className='w-full h-[40%] flex items-center justify-center flex-col gap-2 p-4 rounded-b-2xl'>
-          <h2 className='font-bold text-lg uppercase'>{product.title}</h2>
-          <p className='whitespace-nowrap text-ellipsis overflow-hidden w-full text-black/50'>{product.desc}</p>
-          {product.price ? <span className='font-bold'>{(product.properties[0].price).toFixed(2)}₺</span> : 
-          <span className='font-medium'>M² Fiyatı: <span className='font-bold'>{(product.properties[0].price).toFixed(2)}₺</span></span>}
+          <h2 className='font-bold text-lg max-2xl:text-base uppercase'>{product.title}</h2>
+          <p className='whitespace-nowrap text-ellipsis max-2xl:text-sm overflow-hidden w-full text-black/50'>{product.desc}</p>
+          {product.price ? <span className='font-bold max-2xl:text-sm'>{(product.properties[0].price).toFixed(2)}₺</span> : 
+          <span className='font-medium max-2xl:text-sm'>M² Fiyatı: <span className='font-bold'>{(product.properties[0].price).toFixed(2)}₺</span></span>}
       </div>
   </div>
     ))}

@@ -14,7 +14,7 @@ const Categories = ({categoryList}) => {
                 <div className='h-[300px] max-md:h-[250px] w-full shadow-lg overflow-hidden rounded-2xl'>
                     <Image src={`/uploads/${category.image}`} width={500} height={500} alt='' priority className='w-full h-full rounded-2xl group-hover:scale-110 duration-500 object-cover'/>
                 </div>
-                <h3 className='my-4 font-bold tracking-wide uppercase group-hover:text-primary duration-300'>{category.title}</h3>
+                <h3 className='my-4 font-bold max-2xl:text-sm tracking-wide uppercase group-hover:text-primary duration-300'>{category.title}</h3>
             </div>
             ))}
             </div>

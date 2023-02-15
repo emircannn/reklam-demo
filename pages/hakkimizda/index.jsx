@@ -10,8 +10,8 @@ const index = () => {
             <section className='min-h-[calc(100vh_-_349px)] w-[90%] mx-auto'>
                 <div className='w-full flex items-center justify-center max-xl:flex-col'>
                     <div className='w-1/2 max-xl:w-full'>
-                <h1 className='font-bold text-primary tracking-wide text-4xl mb-8 uppercase'>Hakkımızda</h1>
-                        <p className='font-semibold text-slate-700'>
+                <h1 className='font-bold text-primary tracking-wide text-4xl max-2xl:text-2xl mb-8 uppercase'>Hakkımızda</h1>
+                        <p className='font-semibold max-2xl:text-sm text-slate-700'>
                         Şirket Adı, reklamcılık ve tabela imalatı alanında uzun yıllardır faaliyet göstermekte olan bir şirkettir. Müşterilerimize en kaliteli hizmeti sunmak ve onların taleplerini en hızlı ve etkili şekilde yerine getirmek için ekibimizle birlikte çalışıyoruz.
 
 Reklamcılık alanında, müşterilerimize reklam panoları, afişler, neon tabelalar, görsel reklamlar ve diğer tüm reklam ürünlerini üretiyor ve uyguluyoruz. Tabela imalatı konusunda ise, müşterilerimize en modern ve kaliteli tabelaları sunuyoruz. İşletmelerin görsel kimliklerini yansıtmak ve müşterilerine dikkat çekmek amacıyla, her bir tabelamızı özel olarak tasarlıyor ve üretiyoruz.
