@@ -4,7 +4,7 @@ import Hero from '@/components/Hero'
 import ProductWrapper from '@/components/Product/ProductWrapper'
 import Seo from '@/components/Seo'
 import React from 'react'
-import Header from '../../components/Header'
+import Header from '../Header'
 
 const Home = ({categoryList, productList}) => {
   return (
