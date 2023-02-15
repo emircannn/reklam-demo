@@ -11,7 +11,8 @@ const Footer = () => {
         <section className='w-[90%] mx-auto py-10 flex items-start justify-between max-md:flex-col max-md:items-center max-md:gap-4'>
             <div className='flex flex-col items-center justify-center w-1/3 max-md:w-full'>
             <div className='w-[150px]'>
-                <Image alt='logo' src="/images/logo.png" priority width={500} height={500} className='w-full h-full object-cover mb-8'/>
+               {/*  <Image alt='logo' src="/images/logo.png" priority width={500} height={500} className='w-full h-full object-cover mb-8'/> */}
+               <h2 className='uppercase font-bold tracking-wider text-white text-2xl mb-4 text-center '>Logo</h2>
             </div>
 
             <div className='flex items-center justify-center gap-4'>
@@ -39,18 +40,18 @@ const Footer = () => {
 
                 <div className='text-center'>
                 <h4 className=' font-semibold'>Telefon:</h4>
-                <span>0552 577 93 32</span>
+                <a href='tel:05525779332'>0552 577 93 32</a>
                 </div>
 
                 <div className='text-center'>
                 <h4 className=' font-semibold'>Mail:</h4>
-                <span>dmnwebreklam@gmail.com</span>
+                <a target='_blank' href='mailto:yasar.emircann@gmail.com' rel="noreferrer">yasar.emircann@gmail.com</a>
                 </div>
             </div>
         </section>
 
         <section className='text-white w-[90%] mx-auto py-2 flex items-center justify-center'>
-            <h3 className='text-center'>Tüm Hakları Saklıdır. {currentYear} © <Link href='https://dmnwebreklam.com/'><span className='text-primary font-semibold cursor-pointer hover:opacity-75 duration-300'>dmnwebreklam.com</span></Link></h3>
+            <h3 className='text-center'>Tüm Hakları Saklıdır. {currentYear} © <a href='tel:05525779332'><span className='text-primary font-semibold cursor-pointer hover:opacity-75 duration-300'>Emircan Yaşar</span></a></h3>
         </section>
     </footer>
   )

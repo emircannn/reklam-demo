@@ -12,7 +12,7 @@ const index = () => {
                     <div className='w-1/2 max-xl:w-full'>
                 <h1 className='font-bold text-primary tracking-wide text-4xl mb-8 uppercase'>Hakkımızda</h1>
                         <p className='font-semibold text-slate-700'>
-                        DMN Web, reklamcılık ve tabela imalatı alanında uzun yıllardır faaliyet göstermekte olan bir şirkettir. Müşterilerimize en kaliteli hizmeti sunmak ve onların taleplerini en hızlı ve etkili şekilde yerine getirmek için ekibimizle birlikte çalışıyoruz.
+                        Şirket Adı, reklamcılık ve tabela imalatı alanında uzun yıllardır faaliyet göstermekte olan bir şirkettir. Müşterilerimize en kaliteli hizmeti sunmak ve onların taleplerini en hızlı ve etkili şekilde yerine getirmek için ekibimizle birlikte çalışıyoruz.
 
 Reklamcılık alanında, müşterilerimize reklam panoları, afişler, neon tabelalar, görsel reklamlar ve diğer tüm reklam ürünlerini üretiyor ve uyguluyoruz. Tabela imalatı konusunda ise, müşterilerimize en modern ve kaliteli tabelaları sunuyoruz. İşletmelerin görsel kimliklerini yansıtmak ve müşterilerine dikkat çekmek amacıyla, her bir tabelamızı özel olarak tasarlıyor ve üretiyoruz.
 

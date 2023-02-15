@@ -145,7 +145,7 @@ const metre = () => {
 
 
   return (
-    <div className='p-16 relative'>
+    <div className='p-16 max-md:p-8 max-sm:p-4 relative'>
         <h1 className='font-bold text-2xl tracking-wide text-primary border-b-2 border-primary'>M² Fiyatlı Ürün Ekleme</h1>
         <div className='mt-8 flex gap-8 max-md:flex-col'>
 

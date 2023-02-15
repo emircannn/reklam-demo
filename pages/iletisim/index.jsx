@@ -28,7 +28,7 @@ const index = () => {
                         </div>
                         <div className='flex items-center text-slate-800 font-bold gap-2 ml-2'>
                         <AiFillMail className='text-primary' size={30}/>
-                        <a href='mailto:dmnwebreklam@gmail.com' className='text-slate-800 font-bold hover:text-primary duration-300 cursor-pointer text-xl'>dmnwebreklam@gmail.com</a>
+                        <a href='mailto:yasar.emircann@gmail.com' className='text-slate-800 font-bold hover:text-primary duration-300 cursor-pointer text-xl'>yasar.emircann@gmail.com</a>
                         </div>
 
                         <button className='button flex items-center justify-center gap-4 w-1/2 max-lg:w-full'><ImWhatsapp size={30}/> WhatssApp İletişim Hattı</button>

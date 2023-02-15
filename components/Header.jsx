@@ -22,7 +22,8 @@ const Header = () => {
       <div className='w-[90%] mx-auto py-6 flex items-center justify-between'>
         <Link href='/'>
         <div className='w-[150px] cursor-pointer hover:scale-105 duration-300 bg-black rounded-2xl px-4 py-2'>
-          <Image alt='logo' src="/images/logo.png" width={500} height={500} priority/>
+          {/* <Image alt='logo' src="/images/logo.png" width={500} height={500} priority/> */}
+          <h2 className='uppercase font-bold tracking-wider text-white text-xl text-center'>Logo</h2>
         </div>
         </Link>
 
