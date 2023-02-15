@@ -6,18 +6,18 @@ import Seo from '@/components/Seo'
 import React from 'react'
 import Header from '../../components/Header'
 
-const Home = () => {
+const Home = ({categoryList, productList}) => {
   return (
-    <>
+    <React.Fragment>
         <Header/>
         <main>
         <Hero/>
-        <Categories/>
+        <Categories categoryList={categoryList}/>
+        <ProductWrapper productList={productList}/>
         <Seo/>
-        <ProductWrapper/>
         </main>
         <Footer/>
-    </>
+    </React.Fragment>
   )
 }
 

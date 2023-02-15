@@ -48,7 +48,8 @@ const ProductSchema = new mongoose.Schema(
             ]
         },
         price: {
-            type: Number,
+            type: Boolean,
+            default: false
         },
         isActive: {
             type: Boolean,

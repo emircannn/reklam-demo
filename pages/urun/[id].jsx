@@ -6,19 +6,14 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsClockFill, BsUpload } from 'react-icons/bs'
 import { BiHappyAlt, BiSupport} from 'react-icons/bi'
+import axios from 'axios'
 
 
-const index = () => {
-
-const images = [
-        { id: 1, src: "/images/branda.jpg" },
-        { id: 2, src: "/images/branda2.jpg" },
-        { id: 3, src: "/images/branda3.jpg" }
-    ];
+const index = ({product}) => {
 
     const fiyat = 40
 
-    const [selectedImage, setSelectedImage] = useState(images[0]);
+    const [selectedImage, setSelectedImage] = useState(product.img[0]);
     const [zoom, setZoom] = useState(false);
     const [width, setWidth] = useState(0)
     const [height, setHeight] = useState(0)
@@ -46,24 +41,24 @@ const images = [
             <div className='flex gap-12 items-center min-h-[calc(100vh_-_150px)] justify-center max-md:flex-col'>
                 <div className='w-1/2 max-md:w-full flex flex-col'>
                     <div className='w-full h-[500px] max-md:h-[300px] border-2 border-primary relative overflow-hidden'>
-                        <Image alt='' src={selectedImage.src} onMouseEnter={() => setZoom(true)} 
+                        <Image alt='' src={`/uploads/${selectedImage}`} onMouseEnter={() => setZoom(true)} 
                         onMouseLeave={() => setZoom(false)} priority width={1000} height={1000} 
                         className={`${ zoom ? "cursor-zoom-in" : "cursor-zoom-out"}  w-full h-full object-contain cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-150`}/>
                     </div>
 
                     <div className='w-full grid grid-cols-3 gap-4 my-4'>
-                        {images.map((image) => (
-                            <div key={image.id} className='w-full border-2 cursor-pointer overflow-hidden border-primary'>
-                            <Image alt='' onClick={() => setSelectedImage(image)} src={image.src} priority width={1000} height={1000} className='w-full h-full hover:scale-105 duration-300 object-cover'/>
+                        {product.img.map((image, index) => (
+                            <div key={index} className={`w-full ${image && "border-2 border-primary"} cursor-pointer overflow-hidden `}>
+                            {image && <Image alt={image} onClick={() => setSelectedImage(image)} src={`/uploads/${image}`} priority width={1000} height={1000} className='w-full h-full hover:scale-105 duration-300 object-cover'/>}
                             </div>
                         ))}
                     </div>
                 </div>
                 
                 <div className='w-1/2 max-md:w-full'>
-                    <h1 className='font-bold text-black uppercase text-2xl'>Branda</h1>
+                    <h1 className='font-bold text-black uppercase text-2xl'>{product.title}</h1>
 
-                    <p className='font-semibold text-black/50'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum alias possimus molestias facilis dignissimos! Aliquam dicta ratione totam. Facere, at.</p>
+                    <p className='font-semibold text-black/50'>{product.desc}</p>
 
                     <div className='mt-8'>
                         <h3 className='uppercase my-2 font-semibold text-xl'>Ürün Özelliği</h3>
@@ -84,7 +79,7 @@ const images = [
 
                     <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4>
 
-                    <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
+                    {product.price ? null : <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
                     <label className='relative block cursor-text'>
                         <input onChange={(e) => setWidth(e.target.value)} placeholder='En (cm)' type='number' className='h-12 w-full border-2 border-primary outline-none px-4 peer'/>
                     </label>
@@ -94,7 +89,7 @@ const images = [
                     <label className='relative block cursor-text'>
                         <input onChange={(e) => setHeight(e.target.value)} placeholder='Boy (cm)' type='number' className='h-12 w-full border-2 border-primary outline-none px-4 peer'/>
                     </label>
-                    </div>
+                    </div>}
                     
 
                     <div className='mt-8'>
@@ -114,7 +109,7 @@ const images = [
                     }
 
                     <div className='flex items-center justify-center gap-4'>
-                    <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button>
+                    {product.price ? null : <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button>}
                     <button className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
                     </div>
                 </div>
@@ -127,21 +122,22 @@ const images = [
                 </div>
 
                 {tab === 0 && <div className='w-full mt-4 duration-300'>
-                    <h3 className='font-bold my-2 uppercase text-xl max-md:text-base'>Lorem ipsum dolor sit amet.</h3>
-                    <p className='text-black/50 font-medium max-md:text-sm'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, voluptatibus! Blanditiis, amet deleniti, 
-                        atque molestiae maiores, unde dolorem recusandae reiciendis libero culpa quam rem architecto?</p>
+                    {product.prodetails.map((detail) => (
+                        <div key={detail._id} className='w-full'>
+                        <h3 className='font-bold my-2 uppercase text-xl max-md:text-base'>{detail.dtitle}</h3>
+                        <p className='text-black/50 font-medium max-md:text-sm'>{detail.dparagraph}</p>
+                        </div>
+                    ))}
                 </div>}
 
                 {tab === 1 && 
                 <div className='w-full mt-4 duration-300 flex items-center justify-start flex-col p-2'>
-                    <div className='flex items-center justify-start w-full border-y border-x border-black/30'>
-                    <h3 className='border-r-2 h-full p-2 border-black/30 max-md:text-sm font-bold'>Ürün Özelliği</h3>
-                    <p className='font-semibold text-black/50 ml-2 max-md:text-xs'>Ürün Açıklaması Lorem ipsum dolor sit amet.</p>
-                    </div>
-                    <div className='flex items-center justify-start w-full border-y border-x border-black/30'>
-                    <h3 className='border-r-2 h-full p-2 border-black/30 max-md:text-sm font-bold'>Ürün Özelliği</h3>
-                    <p className='font-semibold text-black/50 ml-2 max-md:text-xs'>Ürün Açıklaması Lorem ipsum dolor sit amet.</p>
-                    </div>
+                    {product.info.map((info) => (
+                        <div key={info._id} className='flex items-center justify-start w-full border-y border-x border-black/30'>
+                        <h3 className='border-r-2 h-full p-2 border-black/30 max-md:text-sm font-bold'>{info.ititle}</h3>
+                        <p className='font-semibold text-black/50 ml-2 max-md:text-xs'>{info.iparagraph}</p>
+                        </div>
+                    ))}
                 </div>}
 
 
@@ -181,5 +177,15 @@ const images = [
     </div>
   )
 }
+
+export const getServerSideProps = async ({params}) => {
+    const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`)
+  
+    return {
+      props: {
+        product: res.data ? res.data : null,
+      },
+    }
+  }
 
 export default index

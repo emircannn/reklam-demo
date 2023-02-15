@@ -1,10 +1,11 @@
 import Head from 'next/head'
 import { Inter } from '@next/font/google'
 import Home from './home'
+import axios from 'axios'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export default function Index() {
+export default function Index({categoryList, productList}) {
   return (
     <>
       <Head>
@@ -14,8 +15,21 @@ export default function Index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Home/>
+      <Home productList={productList} categoryList={categoryList}/>
       
     </>
   )
 }
+
+export const getServerSideProps = async () => {
+  
+  const category = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+  const product = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+
+  return {
+    props: {
+      categoryList: category.data ? category.data : [],
+      productList: product.data ? product.data : []
+    }
+  }
+} 

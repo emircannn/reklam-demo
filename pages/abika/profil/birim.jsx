@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-toastify'
 
-const metre = () => {
+const birim = () => {
 
   const router = useRouter()
 
@@ -124,7 +124,7 @@ const metre = () => {
         properties,
         isActive: true,
         favori: false,
-        price: false
+        price: true
       };
 
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`,newProduct);
@@ -188,10 +188,10 @@ const metre = () => {
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
-            <input onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} type='text' placeholder='Ürün Özelliği...' 
+            <input onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} type='text' placeholder='Örnek 1 Adet' 
             name='name' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
-            <input type='number' placeholder='M² Fiyatı...' onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} 
+            <input type='number' placeholder='Fiyatı...' onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} 
             name='price' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             </div>
             <button onClick={handlePrices} className='button w-full mb-4'>Ekle</button>
@@ -199,11 +199,11 @@ const metre = () => {
             {properties.map((item, index) => (
               <h4 onClick={() => {
                 setProperties(properties.filter((_,i) => i !== index))
-            }} key={index} className='font-semibold text-xl hover:text-primary duration-300 cursor-pointer'>{item.name} - <span className='font-bold'>Fiyatı : {item.price} TL</span></h4>
+            }} key={index} className='font-semibold text-xl hover:text-primary duration-300 cursor-pointer'>{item.name} - <span >Fiyatı : {item.price} TL</span></h4>
             ))}
             </div>
 
-            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>Baskı Sonrası</h2>
+            <h2 className='font-bold text-2xl tracking-wide mt-4 text-primary'>İmalat Sonrası</h2>
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
@@ -307,4 +307,4 @@ export const getServerSideProps = async (contex) => {
   }
 }
 
-export default metre
+export default birim

@@ -11,7 +11,7 @@ const Product = () => {
       <div className='mt-5 w-full'>
         <div className='flex items-center justify-center w-full gap-4 my-4'>
           <button onClick={() => push('/abika/profil/metre')} className='button w-full'>M² Fiyatlı Ürün Ekle</button>
-          <button className='button w-full'>Birim Fiyatlı Ürün Ekle</button>
+          <button onClick={() => push('/abika/profil/birim')} className='button w-full'>Birim Fiyatlı Ürün Ekle</button>
         </div>
 
           <ProductWrapper/>
