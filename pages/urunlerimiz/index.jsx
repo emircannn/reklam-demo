@@ -1,12 +1,13 @@
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Product from '@/components/Product/Product'
+import axios from 'axios'
 import Head from 'next/head'
 import React, { useState } from 'react'
 import { AiOutlineClose } from 'react-icons/ai'
 import OutsideClickHandler from 'react-outside-click-handler';
 
-const index = () => {
+const index = ({productList}) => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [showCategories, setShowCategories] = useState(false)
@@ -48,9 +49,9 @@ const index = () => {
           <div className='w-[80%] max-md:w-full'>
           <h2 className='text-center font-bold text-xl uppercase text-primary border-b-2 border-primary p-2 mb-2'>Ürünlerimiz</h2>
           <div className='w-full grid grid-cols-3 gap-4  max-sm:grid-cols-1 max-md:grid-cols-2'>
-            <Product/>
-            <Product/>
-            <Product/>
+          {productList.map((product) => (
+        <Product key={product._id} product={product}/>
+      ))}
           </div>
           </div>
         </section>
@@ -58,5 +59,18 @@ const index = () => {
     </div>
   )
 }
+
+export const getServerSideProps = async () => {
+  
+  const category = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
+  const product = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products`)
+
+  return {
+    props: {
+      categoryList: category.data ? category.data : [],
+      productList: product.data ? product.data : []
+    }
+  }
+} 
 
 export default index
