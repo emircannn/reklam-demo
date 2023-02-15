@@ -33,7 +33,7 @@ const index = ({product}) => {
   return (
     <div>
         <Head>
-        <title>Branda</title>
+        <title>{product.title}</title>
         </Head>
         <Header/>
         <section className=' w-[90%] mx-auto my-12 max-md:my-6'>
@@ -63,21 +63,19 @@ const index = ({product}) => {
                     <div className='mt-8'>
                         <h3 className='uppercase my-2 font-semibold text-xl'>Ürün Özelliği</h3>
                     <select className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
-                        <option value="">Vinil 240 gr.</option>
-                        <option value="">Vinil 300 gr.</option>
+                        {product.properties.map((prop) => (<option key={prop._id} value="">{prop.name}</option>))}
                     </select>
                     </div>
 
 
-                    <div className='mt-8'>
-                        <h3 className='uppercase my-2 font-semibold text-xl'>Baskı Sonrası</h3>
+                    {product.afterprint.length > 0 && <div className='mt-8'>
+                        <h3 className='uppercase my-2 font-semibold text-xl'>İmalat Sonrası</h3>
                     <select className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
-                        <option value="">Herhangi Bir İşlem Olmasın</option>
-                        <option value="">Kuş Gözü Açılsın</option>
+                    {product.afterprint.map((print) => (<option key={print._id} value="">{print.afname}</option>))}
                     </select>
-                    </div>
+                    </div>}
 
-                    <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4>
+                    {product.price ? <h4 className='!mt-8 font-medium text-xl'>Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4> : <h4 className='!mt-8 font-medium text-xl'>M² Fiyatı: <span className='font-bold'>{fiyat}₺</span></h4>}
 
                     {product.price ? null : <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
                     <label className='relative block cursor-text'>

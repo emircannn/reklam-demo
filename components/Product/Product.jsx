@@ -15,7 +15,7 @@ const Product = ({product}) => {
             </span>
         </div>
         <div className='w-full h-[40%] flex items-center justify-center flex-col gap-2 p-4 rounded-b-2xl'>
-            <h2 className='font-bold text-lg uppercase'>{product.title}</h2>
+            <h2 className='font-bold text-lg uppercase whitespace-nowrap text-ellipsis overflow-hidden w-full text-center'>{product.title}</h2>
             <p className='whitespace-nowrap text-ellipsis overflow-hidden w-full text-black/50'>{product.desc}</p>
             {product.price ? <span className='font-bold'>{(product.properties[0].price).toFixed(2)}₺</span> : 
           <span className='font-medium'>M² Fiyatı: <span className='font-bold'>{(product.properties[0].price).toFixed(2)}₺</span></span>}

@@ -13,8 +13,9 @@ const ProductWrapper = ({productList}) => {
       {productList.length > 0 && productList.slice(0, productLimit).map((product) => product.isActive === true && (<Product key={product._id} product={product}/>))}
       </div>
 
-      <div className='w-full mt-10 flex items-center justify-center'>
-          {productList.length > 3 && <button onClick={() => setProductLimit(productLimit + 3)} className='button'>Daha Falza Gör</button>}
+      <div className='w-full mt-10 flex items-center justify-center gap-4'>
+          {productList.length > 3 && <button onClick={() => setProductLimit(productLimit + 3)} className='button'>Daha Falza Göster</button> }
+          {productLimit > 3 && <button onClick={() => setProductLimit(productLimit - 3)} className='button'>Daha Az Göster</button> }
           </div>
     </section>
   )
