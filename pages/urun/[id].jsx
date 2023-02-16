@@ -7,6 +7,7 @@ import React, { useState } from 'react'
 import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsClockFill, BsUpload } from 'react-icons/bs'
 import { BiHappyAlt, BiSupport} from 'react-icons/bi'
 import axios from 'axios'
+import { AiOutlineArrowRight } from 'react-icons/ai'
 
 
 const index = ({product}) => {
@@ -46,7 +47,7 @@ const index = ({product}) => {
 
             <div className='flex gap-12 items-center min-h-[calc(100vh_-_150px)] justify-center max-md:flex-col'>
                 <div className='w-1/2 max-md:w-full flex flex-col'>
-                    <div className='w-full h-[500px] max-md:h-[300px] border-2 border-primary relative overflow-hidden'>
+                    <div className='w-full h-[500px] max-2xl:h-[400px] max-md:h-[300px] border-2 border-primary relative overflow-hidden'>
                         <Image alt='' src={`/uploads/${selectedImage}`} onMouseEnter={() => setZoom(true)} 
                         onMouseLeave={() => setZoom(false)} priority width={1000} height={1000} 
                         className={`${ zoom ? "cursor-zoom-in" : "cursor-zoom-out"}  w-full h-full object-contain cursor-pointer transition-all duration-300 ease-in-out transform hover:scale-150`}/>
@@ -62,6 +63,9 @@ const index = ({product}) => {
                 </div>
                 
                 <div className='w-1/2 max-md:w-full'>
+
+                    <h3 className='uppercase font-bold text-slate-400 text-sm flex items-center gap-2'>{product.category} <AiOutlineArrowRight size={15}/> {product.title}</h3>
+
                     <h1 className='font-bold text-black uppercase max-2xl:text-lg text-2xl'>{product.title}</h1>
 
                     <p className='font-semibold max-2xl:text-sm text-black/50'>{product.desc}</p>
@@ -100,10 +104,12 @@ const index = ({product}) => {
                         <span className='font-semibold text-xl max-2xl:text-sm uppercase'>Tutar: <span className='font-bold'>{product.price ? wage : amount}₺</span></span>
                     </div> : null }
 
-                    <div className='flex items-center justify-start gap-4 my-4'>
-                    <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
-                    <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
-                    </div>
+                    { product.isDesign === false &&
+                        <div className='flex items-center justify-start gap-4 my-4'>
+                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
+                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
+                        </div>
+                    }
 
                     {
                         selectedRadio === "1" && <form >

@@ -30,6 +30,7 @@ const metre = () => {
   const [prodetails, setProdetails] = useState([])
   const [tech, setTech] = useState("")
   const [info, setInfo] = useState([])
+  const [isDesign, setIsDesign] = useState("0")
 
   const [success, setSuccess] = useState(false)
 
@@ -124,7 +125,8 @@ const metre = () => {
         properties,
         isActive: true,
         favori: false,
-        price: false
+        price: false,
+        isDesign: isDesign === "0" ? true : false,
       };
 
       const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/products`,newProduct);
@@ -160,19 +162,19 @@ const metre = () => {
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide text-primary'>Resim</h2>
             <div className='flex items-center justify-between flex-wrap gap-4 max-lg:justify-center mt-4'>
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl ? ImageUrl : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl ? ImageUrl : '/images/upload.jpg'} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage}/>
             <span className='button'>Kapak Resimi</span>
             </label>
 
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl2 ? ImageUrl2 : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl2 ? ImageUrl2 : '/images/upload.jpg'} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage2}/>
             <span className='button'>2. Resmi Ekle</span>
             </label>
 
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl3 ? ImageUrl3 : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl3 ? ImageUrl3 : '/images/upload.jpg'} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage3}/>
             <span className='button'>3. Resmi Ekle</span>
             </label>
@@ -220,7 +222,14 @@ const metre = () => {
             ))}
             </div>
 
-            
+            <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Hazır Tasarım</h2>
+
+            <div className='mt-2'>
+              <select className='w-full p-2 outline-none mt-1 bg-primary text-white' onChange={(e) => setIsDesign(e.target.value)} name="" id="">
+                <option value="0">Evet</option>
+                <option value="1">Hayır</option>
+              </select>
+            </div>
 
             </div>
 
@@ -232,8 +241,7 @@ const metre = () => {
 
             <div className='flex flex-col text-sm text-white'>
                   <span className='font-semibold'>Ürün Kategorisi</span>
-                  <select className=' w-full p-2 
-                  outline-none mt-1 bg-primary text-white' 
+                  <select className='w-full p-2 outline-none mt-1 bg-primary text-white' 
                   name="" id="" onChange={(e) => setCategory(e.target.value)}>
                       {categories.length > 0 && categories.map((c) =>(
                           <option key={c._id} value={c.title.toLowerCase()}>{c.title}</option>

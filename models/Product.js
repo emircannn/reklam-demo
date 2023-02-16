@@ -34,16 +34,16 @@ const ProductSchema = new mongoose.Schema(
         prodetails: {
             type: [
                 {
-                    dtitle: {type: String, required: true},
-                    dparagraph: {type: String, required: true},
+                    dtitle: {type: String},
+                    dparagraph: {type: String},
                 },
             ]
         },
         info: {
             type: [
                 {
-                    ititle: {type: String, required: true},
-                    iparagraph: {type: String, required: true},
+                    ititle: {type: String},
+                    iparagraph: {type: String},
                 },
             ]
         },
@@ -61,6 +61,10 @@ const ProductSchema = new mongoose.Schema(
         },
         img: {
             type: [String],
+            required: true
+        },
+        isDesign: {
+            type: Boolean,
             required: true
         },
     },

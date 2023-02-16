@@ -58,7 +58,7 @@ const index = ({productList, categoryList}) => {
           
 
           <div className='w-[80%] max-md:w-full'>
-          <h2 className='text-center font-bold text-xl uppercase text-primary border-b-2 border-primary p-2 mb-2'>Ürünlerimiz</h2>
+          <h2 className='text-center font-bold text-xl max-2xl:text-lg uppercase text-primary border-b-2 border-primary p-2 mb-2'>Ürünlerimiz</h2>
           <div className='w-full grid grid-cols-3 gap-4  max-sm:grid-cols-1 max-md:grid-cols-2'>
           {filter.length > 0 && filter.slice(0, productLimit).map((product) => product.isActive === true && <Product key={product._id} product={product}/>)}
           </div>
