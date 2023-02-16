@@ -18,7 +18,7 @@ const Admin = () => {
         if (res.status === 200) {
             actions.resetForm();
             toast.success("Giriş İşlemi Başarılı!", {autoClose: 1000})
-            push("abika/profil")
+            await push("abika/profil")
         }
     } catch (err) {
         console.log(err);
