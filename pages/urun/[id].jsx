@@ -8,9 +8,12 @@ import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsClockFill, BsUpload } f
 import { BiHappyAlt, BiSupport} from 'react-icons/bi'
 import axios from 'axios'
 import { AiOutlineArrowRight } from 'react-icons/ai'
+import { useRouter } from 'next/router'
 
 
-const index = ({product}) => {
+const index = ({product, category}) => {
+
+    const {push} = useRouter()
 
     const [price, setPrice] = useState(product.properties[0].price);
     const [afprint, setAfprint] = useState(product.afterprint[0]?.afprice);
@@ -36,6 +39,7 @@ const index = ({product}) => {
         }
     }
 
+    const currentCategory = category.find((c) => c.title.toLowerCase() === product.category)
 
   return (
     <div>
@@ -64,7 +68,8 @@ const index = ({product}) => {
                 
                 <div className='w-1/2 max-md:w-full'>
 
-                    <h3 className='uppercase font-bold text-slate-400 text-sm flex items-center gap-2'>{product.category} <AiOutlineArrowRight size={15}/> {product.title}</h3>
+                    <h3 className='uppercase font-bold text-slate-400 text-sm max-md:text-xs flex items-center gap-2'><span onClick={() => push(`/kategori/${currentCategory._id}`)} className='hover:text-primary duration-300 cursor-pointer'>{product.category}</span> 
+                    <AiOutlineArrowRight size={15}/> {product.title}</h3>
 
                     <h1 className='font-bold text-black uppercase max-2xl:text-lg text-2xl'>{product.title}</h1>
 
@@ -190,10 +195,12 @@ const index = ({product}) => {
 
 export const getServerSideProps = async ({params}) => {
     const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/products/${params.id}`)
+    const category = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/categories`)
   
     return {
       props: {
         product: res.data ? res.data : null,
+        category: category.data ? category.data : null,
       },
     }
   }

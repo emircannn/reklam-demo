@@ -18,7 +18,7 @@ const index = ({category, products}) => {
   return (
     <React.Fragment>
         <Head>
-      <title>Ürünlerimiz</title>
+      <title>{category.title}</title>
       </Head>
         <Header/>
         <section className='min-h-[calc(100vh_-_409px)] w-[90%] mx-auto flex flex-col items-center justify-start py-10 gap-4 relative'>

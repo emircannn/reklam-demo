@@ -10,6 +10,7 @@ import OutsideClickHandler from 'react-outside-click-handler';
 
 const index = ({productList, categoryList}) => {
   const [showCategories, setShowCategories] = useState(false)
+  const [showAll, setShowAll] = useState(true)
   const [active, setActive] = useState(0);
   const [productLimit, setProductLimit] = useState(3);
   const [filter, setFilter] = useState("");
@@ -28,9 +29,10 @@ const index = ({productList, categoryList}) => {
         <section className='min-h-[calc(100vh_-_349px)] w-[90%] mx-auto flex items-start justify-center my-16 gap-4 relative'>
           <div className='w-[20%] flex items-center justify-start flex-col p-2 gap-2 max-md:hidden'>
             <h3 className='font-bold uppercase text-lg text-primary border-b-2 border-primary p-2 mb-2'>Kategoriler</h3>
+            <button onClick={() => setShowAll(true)} className={`${showAll ? "bg-primary text-white" : "text-black bg-slate-200"} max-2xl:text-sm hover:text-white font-semibold uppercase text-center duration-300 w-full p-2 group hover:bg-primary cursor-pointer shadow-lg`}>Hepsi</button>
             {categoryList.map((category ,index) => (
-                  <button key={category._id} onClick={() => {setActive(index), setProductLimit(3)}} 
-                  className={`${active && "bg-primary text-white"} text-black max-2xl:text-sm hover:text-white font-semibold uppercase text-center duration-300 bg-slate-200 w-full p-2 group 
+                  <button key={category._id} onClick={() => {setActive(index), setProductLimit(3), setShowAll(false)}} 
+                  className={`${index === active && !showAll ? "bg-primary text-white" : "text-black bg-slate-200"}  max-2xl:text-sm hover:text-white font-semibold uppercase text-center duration-300 w-full p-2 group 
                   hover:bg-primary cursor-pointer shadow-lg`}>{category.title}</button>
                 ))}
           </div>
@@ -59,13 +61,17 @@ const index = ({productList, categoryList}) => {
 
           <div className='w-[80%] max-md:w-full'>
           <h2 className='text-center font-bold text-xl max-2xl:text-lg uppercase text-primary border-b-2 border-primary p-2 mb-2'>Ürünlerimiz</h2>
+          {showAll && <div className='w-full grid grid-cols-3 gap-4  max-sm:grid-cols-1 max-md:grid-cols-2'>
+          {productList.length > 0 && productList.map((product) => product.isActive === true && <Product key={product._id} product={product}/>)}
+          </div>}
+          {!showAll && 
           <div className='w-full grid grid-cols-3 gap-4  max-sm:grid-cols-1 max-md:grid-cols-2'>
           {filter.length > 0 && filter.slice(0, productLimit).map((product) => product.isActive === true && <Product key={product._id} product={product}/>)}
-          </div>
+          </div>}
 
-          <div className='w-full mt-10 flex items-center justify-center'>
+          {showAll === false && <div className='w-full mt-10 flex items-center justify-center'>
           {filter.length > 3 && <button onClick={() => setProductLimit(productLimit + 3)} className='button'>Daha Falza Gör</button>}
-          </div>
+          </div>}
 
           </div>
         </section>
