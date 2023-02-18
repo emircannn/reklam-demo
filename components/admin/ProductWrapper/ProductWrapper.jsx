@@ -5,10 +5,12 @@ import { AiOutlinePoweroff, AiTwotoneEdit } from 'react-icons/ai'
 import { MdFavorite, MdFavoriteBorder } from 'react-icons/md'
 import { BsFillTrashFill } from 'react-icons/bs'
 import { toast } from 'react-toastify'
+import { useRouter } from 'next/router'
 
 const ProductWrapper = () => {
 
   const [products, setProducts] = useState([])
+  const {push} = useRouter()
 
   useEffect(() => {
     const getProducts = async () => {
@@ -101,6 +103,14 @@ const ProductWrapper = () => {
       }
     }
 
+    const pushEdit = (product) => {
+      if(product.price){
+        push(`/abika/profil/duzenleme/birim/${product._id}`)
+      }
+      else{push(`/abika/profil/duzenleme/metre/${product._id}`)
+      }
+    }
+
 
 
   return (
@@ -114,7 +124,7 @@ const ProductWrapper = () => {
           <Image alt='' src={`/uploads/${product.img[0]}`} className='w-full h-full object-cover rounded-2xl group-hover:opacity-0 duration-500' priority width={1000} height={1000}/>
           <Image alt='' src={`/uploads/${product.img[1]}`} className='w-full h-full top-0 left-0 absolute object-cover rounded-2xl opacity-0 group-hover:opacity-100 duration-500' priority width={1000} height={1000}/>
           <span className='absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 gap-2 duration-500 flex items-center justify-center'>
-              <button className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><AiTwotoneEdit size={22}/></button>
+              <button onClick={() => pushEdit(product)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><AiTwotoneEdit size={22}/></button>
               <button onClick={() => handleDelete(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><BsFillTrashFill size={22}/></button>
               {product.isActive === false && <button onClick={() => handleActive(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><AiOutlinePoweroff size={22}/></button>}
               {product.isActive === true && <button onClick={() => handleDeActive(product._id)} className='p-4 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-primary duration-300'><AiOutlinePoweroff size={22}/></button>}
