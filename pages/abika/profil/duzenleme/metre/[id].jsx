@@ -115,7 +115,7 @@ const index = ({product}) => {
 
     try {
       const newProduct = {
-        img: [image.name ? image.name : product.img[0], image2 ? image2.name : product.img[1] ? product.img[1] : null,image3 ? image3.name : product.img[2] ? product.img[2] : null],
+        img: [image.name ? image.name : product.img[0], image2.name ? image2.name : product.img[1] , image3.name ? image3.name : product.img[2] ],
         title,
         desc,
         category: category.toLowerCase(),

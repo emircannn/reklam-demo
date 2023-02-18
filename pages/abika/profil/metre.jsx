@@ -115,7 +115,7 @@ const metre = () => {
 
     try {
       const newProduct = {
-        img: [image.name,image2 ? image2.name : null,image3 ? image3.name : null],
+        img: [image.name, image2.name ? image2.name : null,image3.name ? image3.name : null],
         title,
         desc,
         category: category.toLowerCase(),

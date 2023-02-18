@@ -30,7 +30,7 @@ const index = ({product}) => {
   const [prodetails, setProdetails] = useState(product.prodetails)
   const [tech, setTech] = useState("")
   const [info, setInfo] = useState(product.info)
-  const [isDesign, setIsDesign] = useState("0")
+  const [isDesign, setIsDesign] = useState(product.isDesign)
 
   const [success, setSuccess] = useState(false)
 
@@ -111,11 +111,13 @@ const index = ({product}) => {
     const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/upload`,body)
   }
 
+  
+
   const handleUpdate = async (id) => {
 
     try {
       const newProduct = {
-        img: [image.name ? image.name : product.img[0], image2 ? image2.name : product.img[1] ? product.img[1] : null,image3 ? image3.name : product.img[2] ? product.img[2] : null],
+        img: [image.name ? image.name : product.img[0], image2.name ? image2.name : product.img[1] , image3.name ? image3.name : product.img[2] ],
         title,
         desc,
         category: category.toLowerCase(),
