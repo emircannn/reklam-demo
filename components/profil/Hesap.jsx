@@ -1,7 +1,7 @@
 import { useFormik } from "formik";
 import { toast } from "react-toastify";
 import axios from "axios";
-import Input from "../Input";
+import Input from "../UI/Input";
 import { accountSchema } from "@/schema/account";
 
 const Hesap = ({user}) => {

@@ -44,6 +44,7 @@ const Categories = () => {
       setTitle("")
       setImageUrl('')
       toast.success('Kategori Başarı İle Oluşturuldu!') 
+      sendServer()
     } catch (err) {
       toast.error("Kategori Oluşturma İşlemi Başarısız!");
         console.log(err);
@@ -76,7 +77,7 @@ const Categories = () => {
 
       <div className='w-full flex flex-col gap-4'>
       <input type='text' value={title} onChange={(e) => setTitle(e.target.value)} placeholder='Kategori İsmi...' className="h-12 border-2 border-primary outline-none px-4 peer w-full"/>
-      <button type='button' onClick={() => (sendServer(), handleCreate())} className='button'>Ekle</button>
+      <button type='button' onClick={() => handleCreate()} className='button'>Ekle</button>
       </div>
 
       </div>

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import Input from '@/components/Input'
+import Input from '@/components/UI/Input'
 import { registerSchema } from '@/schema/register'
 import axios from 'axios'
 import { useFormik } from 'formik'

@@ -3,28 +3,46 @@ import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import Head from 'next/head'
 import Image from 'next/image'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsClockFill, BsUpload } from 'react-icons/bs'
 import { BiHappyAlt, BiSupport} from 'react-icons/bi'
 import axios from 'axios'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useRouter } from 'next/router'
+import { addProduct } from '@/redux/cartSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const index = ({product, category}) => {
 
     const {push} = useRouter()
+    const dispatch = useDispatch()
 
-    const [price, setPrice] = useState(product.properties[0].price);
-    const [afprint, setAfprint] = useState(product.afterprint[0]?.afprice);
-    const [wage, setWage] = useState(price)
+    const [price, setPrice] = useState(product.properties[0]?._id);
+    const [afprint, setAfprint] = useState(product.afterprint[0]?._id);
+    const [wage, setWage] = useState(price.price)
     const [selectedImage, setSelectedImage] = useState(product.img[0]);
     const [zoom, setZoom] = useState(false);
     const [width, setWidth] = useState(0)
     const [height, setHeight] = useState(0)
     const [amount, setAmount] = useState(0)
     const [tab, setTab] = useState(0)
+    const [addWage, setAddWage] = useState(0)
     const [selectedRadio, setSelectedRadio] = useState("0");
+
+    const [settings, setSettings] = useState([])
+
+    useEffect(() => {
+      const getSettings = async () => {
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/settings`)
+            setSettings(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+      }
+      getSettings()
+    }, [])
 
 
     const handleOptionChange = (event) => {
@@ -33,16 +51,28 @@ const index = ({product, category}) => {
     
     const calculate = () => {
         if(product.price){
-            setWage(price + (afprint ? afprint : 0))  
+            setWage(priceName.price + (printName ? printName.afprice : 0) + (selectedRadio === "0" ? settings[0]?.designWage : 0))  
         }else{
-            setAmount(price*(width/100)*(height/100) + (afprint)) 
+            setAmount(priceName.price*(width/100)*(height/100) + (printName.afprice) + (selectedRadio === "0" ? settings[0]?.designWage : 0)) 
         }
     }
 
     const currentCategory = category.find((c) => c.title.toLowerCase() === product.category)
+    const priceName = product.properties.find((p) => p._id == price)
+    const printName = product.afterprint.find((p) => p._id == afprint)
 
+    const handleAdd = () => {
+        dispatch(addProduct({...product, quantity : 1, 
+            width: width ? parseInt(width) : null, 
+            height: height ? parseInt(height) : null, 
+            cartprice: priceName ? priceName.price : null, 
+            afprint : printName ? printName.afprice : null, 
+            selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
+            priceName: priceName ? priceName.name : null, 
+            printName: printName ? printName.afname : null, }))
+    }
   return (
-    <div>
+    <React.Fragment>
         <Head>
         <title>{product.title}</title>
         </Head>
@@ -77,20 +107,21 @@ const index = ({product, category}) => {
 
                     <div className='mt-8'>
                         <h3 className='uppercase max-2xl:text-base my-2 font-semibold text-xl'>Ürün Özelliği</h3>
-                    <select onChange={(e) => setPrice(parseInt(e.target.value))} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
-                        {product.properties.map((prop) => (<option key={prop._id} value={prop.price}>{prop.name}</option>))}
+                    <select onChange={(e) => setPrice(e.target.value)} className='outline-none px-4 py-2 bg-primary text-white font-semibold'>
+                        {product.properties.map((prop) => (<option key={prop._id} value={prop._id}>{prop.name}</option>))}
                     </select>
                     </div>
 
 
                     {product.afterprint.length > 0 && <div className='mt-8'>
                         <h3 className='uppercase max-2xl:text-base my-2 font-semibold text-xl'>İmalat Sonrası</h3>
-                    <select onChange={(e) => setAfprint(parseInt(e.target.value))} className='outline-none px-4 py-2 max-2xl:text-sm bg-primary text-white font-semibold'>
-                    {product.afterprint.map((print) => (<option key={print._id} value={print.afprice}>{print.afname} - {print.afprice} TL</option>))}
+                    <select onChange={(e) => setAfprint(e.target.value)} className='outline-none px-4 py-2 max-2xl:text-sm bg-primary text-white font-semibold'>
+                    {product.afterprint.map((print) => (<option key={print._id} value={print._id}>{print.afname} - {print.afprice} TL</option>))}
                     </select>
                     </div>}
 
-                    {product.price ? <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>Fiyatı: <span className='font-bold'>{price}₺</span></h4> : <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>M² Fiyatı: <span className='font-bold'>{price}₺</span></h4>}
+                    {product.price ? <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>Fiyatı: <span className='font-bold'>{(priceName.price).toFixed(2)}₺</span></h4> : 
+                    <h4 className='!mt-8 font-medium max-2xl:text-base text-xl'>M² Fiyatı: <span className='font-bold'>{(priceName.price).toFixed(2)}₺</span></h4>}
 
                     {product.price ? null : <div className='flex items-center flex-1 justify-cente w-full gap-2 mt-8'>
                     <label className='relative block cursor-text'>
@@ -106,12 +137,13 @@ const index = ({product, category}) => {
                     
 
                     {product.afterprint.length > 0 && product.price === false ? <div className='mt-8'>
-                        <span className='font-semibold text-xl max-2xl:text-sm uppercase'>Tutar: <span className='font-bold'>{product.price ? wage : amount}₺</span></span>
+                        <span className='font-semibold text-xl max-2xl:text-sm uppercase'>Tutar: <span className='font-bold'>{product.price ? wage.toFixed(2) : amount.toFixed(2)}₺</span></span>
                     </div> : null }
 
                     { product.isDesign === false &&
                         <div className='flex items-center justify-start gap-4 my-4'>
-                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1"></input> Tasarım Desteği İstiyorum</label>
+                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1">
+                            </input> Tasarım Desteği İstiyorum - {settings[0]?.designWage}₺</label>
                         <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
                         </div>
                     }
@@ -125,7 +157,7 @@ const index = ({product, category}) => {
 
                     <div className='flex items-center justify-center gap-4'>
                      {product.afterprint.length > 0 && product.price === false ? <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button> : null}
-                    <button className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
+                    <button onClick={handleAdd} className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
                     </div>
                 </div>
             </div>
@@ -161,14 +193,14 @@ const index = ({product, category}) => {
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BsTruck size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
                         <span className='font-semibold max-2xl:text-sm uppercase text-center'>Ücretsiz Kargo</span>
-                        <span className='text-black/50 max-2xl:text-sm font-medium text-center'>500 TL üzeri kargo bedava</span>
+                        <span className='text-black/50 max-2xl:text-sm font-medium text-center'>{settings[0]?.freeShipping} TL üzeri kargo bedava</span>
                         </div>
                     </div>
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
                         <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BiSupport size={30}/></div>
                         <div className='flex flex-col justify-center items-center'>
                         <span className='font-semibold uppercase max-2xl:text-sm text-center'>Uzmanlarla Birebir Görüşme</span>
-                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>0552 577 93 32 (Whatsapp Destek)</span>
+                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>{settings[0]?.phone} (Whatsapp Destek)</span>
                         </div>
                     </div>
                     <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
@@ -189,7 +221,7 @@ const index = ({product, category}) => {
             </div>
         </section>
         <Footer/>
-    </div>
+    </React.Fragment>
   )
 }
 

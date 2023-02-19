@@ -11,6 +11,9 @@ import NProgress from "nprogress";
 import "../styles/globals.css";
 import "nprogress/nprogress.css";
 
+import { Provider } from 'react-redux'
+import store from '../redux/store'
+
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
@@ -39,10 +42,13 @@ function Loading() {
 }
 
 export default function App({ Component, pageProps:{session, ...pageProps} }) {
-
-  return <SessionProvider session={session}>
-    <Loading/>
-    <ToastContainer />
-    <Component {...pageProps} />
-  </SessionProvider> 
+  return(
+    <SessionProvider session={session}>
+      <Provider store={store}>
+      <Loading/>
+      <ToastContainer />
+        <Component {...pageProps} />
+      </Provider>
+    </SessionProvider>
+    )
 }

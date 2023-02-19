@@ -19,6 +19,16 @@ a {
   box-sizing: border-box;
 }
 
+html::--webkit-scrollbar{
+  width: 8px;
+  background-color: white;
+}
+
+html::--webkit-scrollbar-thumb{
+  width: 8px;
+  background-color: #814cda;
+}
+
 @layer base{
    
 

@@ -4,7 +4,7 @@ import Head from "next/head";
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';
-import Input from '@/components/Input';
+import Input from '@/components/UI/Input';
 import { adminSchema } from '@/schema/admin';
 import Image from 'next/image';
 

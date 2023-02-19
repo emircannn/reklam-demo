@@ -10,6 +10,8 @@ import { FaBox } from 'react-icons/fa'
 import { FiClipboard } from 'react-icons/fi'
 import Product from '@/components/admin/Product';
 import Categories from '@/components/admin/Categories';
+import { AiFillSetting } from 'react-icons/ai';
+import Settings from '@/components/admin/Settings';
 
 
 const Profil = () => {
@@ -59,7 +61,11 @@ const Profil = () => {
                 <li onClick={() => setTab(2)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 2 && "bg-black"}`}>
                     <FaBox size={20}/>
                     <button className='uppercase font-medium max-2xl:text-sm text-lg'>Siparişler</button>
-                    </li>
+                </li>
+                <li onClick={() => setTab(3)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 3 && "bg-black"}`}>
+                    <AiFillSetting size={20}/>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Ayarlar</button>
+                </li>
                 <li onClick={signOutAdmin} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 6 && "bg-black"}`}>
                     <RxExit size={20}/>
                     <button className='uppercase font-medium max-2xl:text-sm text-lg'>Çıkış</button>
@@ -70,6 +76,7 @@ const Profil = () => {
         <div className='w-[80%] max-md:w-full max-lg:w-[70%]'>
             {tab === 0 && <Product/>}
             {tab === 1 && <Categories/>}
+            {tab === 3 && <Settings/>}
             
         </div>
 

@@ -76,10 +76,10 @@ const ProductWrapper = () => {
 
     const handleFavori = async (id) => {
       try {
-        if (confirm("Ürünü Etkisizleştirmek İstediğinize Emin Misiniz?")) {
+        if (confirm("Ürün Öne Çıkarılsın mı?")) {
           const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`, {favori : true} )
           if (res.status === 200) {
-            toast.success("Etkisizleştirme İşlemi Başarılı!")
+            toast.success("Öne Çıkarma İşlemi Başarılı!")
             /* setFiltered([res.data, ...filtered.filter((product) => product._id !== id)]) */
             setProducts([res.data, ...products.filter((product) => product._id !== id)])
           }
@@ -90,10 +90,10 @@ const ProductWrapper = () => {
     }
     const handleDeFavori = async (id) => {
       try {
-        if (confirm("Ürünü Etkisizleştirmek İstediğinize Emin Misiniz?")) {
+        if (confirm("Ürün Öne Çıkarılanlardan Kaldırılsın mı?")) {
           const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`, {favori : false} )
           if (res.status === 200) {
-            toast.success("Etkisizleştirme İşlemi Başarılı!")
+            toast.success("Öne Çıkarılanlardan Kaldırıldı!")
             /* setFiltered([res.data, ...filtered.filter((product) => product._id !== id)]) */
             setProducts([res.data, ...products.filter((product) => product._id !== id)])
           }
@@ -125,16 +125,16 @@ const ProductWrapper = () => {
           <Image alt='' src={`/uploads/${product.img[1]}`} className='w-full h-full top-0 left-0 absolute object-cover rounded-2xl opacity-0 group-hover:opacity-100 duration-500' priority width={1000} height={1000}/>
           <span className='absolute top-0 left-0 w-full h-full opacity-0 group-hover:opacity-100 gap-2 duration-500 flex items-center justify-center'>
               <button onClick={() => pushEdit(product)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><AiTwotoneEdit size={22}/></button>
-              <button onClick={() => handleDelete(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><BsFillTrashFill size={22}/></button>
               {product.isActive === false && <button onClick={() => handleActive(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><AiOutlinePoweroff size={22}/></button>}
               {product.isActive === true && <button onClick={() => handleDeActive(product._id)} className='p-4 rounded-full bg-red-500 text-white flex items-center justify-center hover:bg-primary duration-300'><AiOutlinePoweroff size={22}/></button>}
               {product.favori === true && <button onClick={() => handleDeFavori(product._id)} className='p-4 rounded-full bg-white text-red-500 flex items-center border border-red-500 justify-center hover:bg-red-500 hover:text-white duration-300'><MdFavorite size={22}/></button>}
               {product.favori === false && <button onClick={() => handleFavori(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><MdFavoriteBorder size={22}/></button>}
+              <button onClick={() => handleDelete(product._id)} className='p-4 rounded-full bg-white flex items-center justify-center border border-primary hover:bg-primary hover:text-white duration-300'><BsFillTrashFill size={22}/></button>
           </span>
       </div>
       <div className='w-full h-[40%] flex items-center justify-center flex-col gap-2 p-4 rounded-b-2xl'>
-          <h2 className='font-bold text-lg max-2xl:text-base uppercase'>{product.title}</h2>
-          <p className='whitespace-nowrap text-ellipsis max-2xl:text-sm overflow-hidden w-full text-black/50'>{product.desc}</p>
+          <h2 className='font-bold text-lg max-2xl:text-base uppercase whitespace-nowrap text-ellipsis overflow-hidden text-center w-full'>{product.title}</h2>
+          <p className='whitespace-nowrap text-ellipsis max-2xl:text-sm overflow-hidden text-center w-full text-black/50'>{product.desc}</p>
           {product.price ? <span className='font-bold max-2xl:text-sm'>{(product.properties[0]?.price)?.toFixed(2)}₺</span> : 
           <span className='font-medium max-2xl:text-sm'>M² Fiyatı: <span className='font-bold'>{(product.properties[0]?.price)?.toFixed(2)}₺</span></span>}
       </div>

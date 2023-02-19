@@ -1,10 +1,26 @@
+import axios from 'axios';
 import Image from 'next/image'
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import {BsInstagram, BsFacebook, BsWhatsapp} from 'react-icons/bs'
 
 const Footer = () => {
 
+    const [settings, setSettings] = useState([])
+
+    useEffect(() => {
+      const getSettings = async () => {
+        try {
+            const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/settings`)
+            setSettings(res.data)
+        } catch (err) {
+            console.log(err)
+        }
+      }
+      getSettings()
+    }, [])
+    
+    
     const currentYear = new Date().getFullYear();
   return (
     <footer className='bg-black'>
@@ -35,17 +51,17 @@ const Footer = () => {
                 <h4 className='uppercase font-semibold text-lg'>İletişim</h4>
                 <div>
                 <h4 className='text-center font-semibold'>Adres:</h4>
-                <p className='text-center'>Yazlık, Vatan Mah. 4229. Sk. No:9, Serdivan Sakarya</p>
+                <p className='text-center'>{settings[0]?.address}</p>
                 </div>
 
                 <div className='text-center'>
                 <h4 className=' font-semibold'>Telefon:</h4>
-                <a href='tel:05525779332'>0552 577 93 32</a>
+                <a href={`tel:${settings[0]?.phone}`}>{settings[0]?.phone}</a>
                 </div>
 
                 <div className='text-center'>
                 <h4 className=' font-semibold'>Mail:</h4>
-                <a target='_blank' href='mailto:yasar.emircann@gmail.com' rel="noreferrer">yasar.emircann@gmail.com</a>
+                <a target='_blank' href={`mailto:${settings[0]?.email}`} rel="noreferrer">{settings[0]?.email}</a>
                 </div>
             </div>
         </section>
@@ -56,5 +72,4 @@ const Footer = () => {
     </footer>
   )
 }
-
 export default Footer

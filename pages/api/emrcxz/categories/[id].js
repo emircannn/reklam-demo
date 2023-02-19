@@ -1,5 +1,7 @@
-import Category from "../../../models/Category";
-import dbConnect from "../../../util/dbConnect";
+import Category from "@/models/Category";
+import dbConnect from "@/util/dbConnect";
+
+;
 
 const handler = async (req, res) => {
     await dbConnect();
