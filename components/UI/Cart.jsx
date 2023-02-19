@@ -48,7 +48,7 @@ const Cart = ({setCart, cart}) => {
             <h2 className='font-bold whitespace-nowrap text-ellipsis max-md:text-sm overflow-hidden w-full'>{item.title}</h2>
             {item.priceName && <span className='text-xs font-semibold'>{item.priceName} - {item.cartprice}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
             {item.printName && <span className='text-xs font-semibold'>{item.printName} - {item.afprint}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
-            {item.isDesign === false && <span className='text-xs font-semibold'>{item.selectedRadio === 0 ? "Kendi Tasarımım Var." : "Tasarım Desteği İstiyorum"} - {settings[0]?.designWage}₺</span>}
+            {item.isDesign === false && <span className='text-xs font-semibold'>{item.selectedRadio === 0 ? "Kendi Tasarımım Var." : "Tasarım Desteği İstiyorum"} {item.selectedRadio === 0 ? null : `-  ${settings[0]?.designWage}₺`}</span>}
             {item.price === false ? <span className='text-xs font-semibold'>En: {item.width} cm X Boy: {item.height} cm</span> : null}
             <div className='flex items-center justify-between w-full mt-2'>
             <span className='text-sm font-bold'>Fiyat: {item.price === true ? item.cartprice + item.afprint +  (item.isDesign ? 0 : item.selectedRadio) : 
