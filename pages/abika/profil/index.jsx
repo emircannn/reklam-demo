@@ -52,11 +52,11 @@ const Profil = () => {
             <ul className='flex items-center justify-center flex-col w-full mt-8'>
                 <li onClick={() => setTab(0)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 0 && "bg-dark"}`}>
                     <FiClipboard size={20}/>
-                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Ürünler</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Ürün Düzenle</button>
                     </li>
                 <li onClick={() => setTab(1)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 1 && "bg-black"}`}>
                     <BiCategory size={20}/>
-                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Kategoriler</button>
+                    <button className='uppercase font-medium max-2xl:text-sm text-lg'>Kategori Düzenle</button>
                     </li>
                 <li onClick={() => setTab(2)} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 2 && "bg-black"}`}>
                     <FaBox size={20}/>
