@@ -58,15 +58,15 @@ const Cart = ({setCart, cart}) => {
           </div>
 
           <div className='w-[70%] flex items-start justify-start flex-col'>
-            <h2 className='font-bold whitespace-nowrap text-ellipsis max-md:text-sm overflow-hidden w-full'>{item.title}</h2>
-            {item.priceName && <span className='text-xs font-semibold'>{item.priceName} - {item.cartprice}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
-            {item.printName && <span className='text-xs font-semibold'>{item.printName} - {item.afprint}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
-            {item.isDesign === false && <span className='text-xs font-semibold'>{item.selectedRadio === 0 ? "Kendi Tasarımım Var." : "Tasarım Desteği İstiyorum"} {item.selectedRadio === 0 ? null : `-  ${settings[0]?.designWage}₺`}</span>}
-            {item.price === false ? <span className='text-xs font-semibold'>En: {item.width} cm X Boy: {item.height} cm</span> : null}
+            <h2 className='font-bold whitespace-nowrap text-ellipsis max-md:text-[13px] overflow-hidden w-full'>{item.title}</h2>
+            {item.priceName && <span className='text-xs max-md:text-[10px] font-semibold'>{item.priceName} - {item.cartprice}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
+            {item.printName && <span className='text-xs max-md:text-[10px] font-semibold'>{item.printName} - {item.afprint}₺ {item.quantity > 1 && `x ${item.quantity}`}</span>}
+            {item.isDesign === false && <span className='text-xs max-md:text-[10px] font-semibold'>{item.selectedRadio === 0 ? "Kendi Tasarımım Var." : "Tasarım Desteği İstiyorum"} {item.selectedRadio === 0 ? null : `-  ${settings[0]?.designWage}₺`}</span>}
+            {item.price === false ? <span className='text-xs max-md:text-[10px] font-semibold'>En: {item.width} cm X Boy: {item.height} cm</span> : null}
             <div className='flex items-center justify-between w-full mt-2'>
-            <span className='text-sm font-bold'>Fiyat: {item.price === true ? (item.cartprice + item.afprint +  (item.isDesign ? 0 : item.selectedRadio)).toFixed(2) : 
+            <span className='text-sm max-md:text-[11px] font-bold'>Fiyat: {item.price === true ? (item.cartprice + item.afprint +  (item.isDesign ? 0 : item.selectedRadio)).toFixed(2) : 
             (item.cartprice*(item.width/100 )*(item.height/100) +item.afprint + (item.isDesign ? 0 : item.selectedRadio)).toFixed(2)}₺</span>
-            <span className='flex items-center justify-center gap-4 bg-white max-2xl:px-3 max-2xl:py-1 px-4 py-2 rounded-full text-primary font-bold'>
+            <span className='flex items-center justify-center gap-4 bg-white max-2xl:px-3 max-md:gap-2 max-2xl:py-1 px-4 py-2 rounded-full text-primary font-bold'>
               {item.quantity > 1 ? <AiOutlineMinus onClick={()=> dispatch(descrease(item))}  size={18} className='cursor-pointer hover:text-black duration-300 font-bold'/> : 
               <BsFillTrashFill onClick={()=> dispatch(deleteProduct(item))} size={18} className='cursor-pointer hover:text-black duration-300'/>} 
               {item.quantity} 
@@ -81,19 +81,19 @@ const Cart = ({setCart, cart}) => {
 
         <div className='w-full flex flex-col items-center justify-center gap-2 border-t p-2 border-gray-300'>
           <div className='flex items-center justify-between w-full'>
-          <h5 className='text-lg font-semibold uppercase'>Ara Toplam:</h5>
+          <h5 className='text-lg font-bold max-md:text-sm uppercase'>Ara Toplam:</h5>
           <span className='text-lg font-bold max-2xl:text-base max-md:text-sm'>{cartTotal.toFixed(2)}₺</span>
           </div>
           <div className='flex items-center justify-between w-full'>
-          {settings[0]?.minwage > cartTotal && <span className='text-lg font-semibold uppercase max-2xl:text-base max-md:text-sm'>{cartTotal === 0 ? "Min. Sepet Tutarı" : "Eksik Sepet Tutarı:"}</span>}
+          {settings[0]?.minwage > cartTotal && <span className='text-lg font-bold uppercase max-2xl:text-base max-md:text-sm'>{cartTotal === 0 ? "Min. Sepet Tutarı" : "Eksik Sepet Tutarı:"}</span>}
           { cartTotal < settings[0]?.minwage && <span className='text-lg font-bold max-2xl:text-base max-md:text-sm'>{(settings[0]?.minwage - cartTotal).toFixed(2)} ₺</span>}
           </div>
           <div className='flex items-center justify-between w-full'>
-          <h6 className='text-lg font-semibold uppercase'>Toplam:</h6>
+          <h6 className='text-lg font-bold max-md:text-sm uppercase'>Toplam:</h6>
           <span className='text-lg font-bold max-2xl:text-base max-md:text-sm'>{cartTotal === 0 ? (0).toFixed(2) : cartTotalEnd.toFixed(2)}₺</span>
           </div>
-          <span className='text-xs font-bold uppercase text-black/60'>{settings[0]?.freeShipping.toFixed(2)}₺ Üzeri Kargo Bedava. - Kargo Ücreti {settings[0]?.shippingWage.toFixed(2)}₺</span>
-          <span className='text-xs font-bold uppercase text-black/60'>Fiyatlarımıza KDV Dahildir.</span>
+          <span className='text-xs text-[11px] text-center font-bold uppercase text-black/60'>{settings[0]?.freeShipping.toFixed(2)}₺ Üzeri Kargo Bedava. - Kargo Ücreti {settings[0]?.shippingWage.toFixed(2)}₺</span>
+          <span className='text-xs text-[11px] text-center font-bold uppercase text-black/60'>Fiyatlarımıza KDV Dahildir.</span>
           <button className='button w-full !uppercase'>Siparişi Tamamla</button>
         </div>
         </div>

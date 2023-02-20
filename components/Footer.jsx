@@ -40,10 +40,21 @@ const Footer = () => {
 
             <nav className='w-1/3 max-md:w-full'>
                 <ul className='text-white flex flex-col justify-center gap-2 items-center max-md:my-2 w-full'>
-                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Ana Sayfa</li>
-                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Tüm Ürünlerimiz</li>
-                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Hakkımızda</li>
-                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>İletişim</li>
+                    <Link href="/kvkk/gizlilik-sozlesmesi">
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Gizlilik Sözleşmesi</li>
+                    </Link>
+                    <Link href="/kvkk/mesafeli-satis">
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Mesafeli Satış Sözleşmesi</li>
+                    </Link>
+                    <Link href="/kvkk/iade">
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Ödeme, Teslimat, iptal ve İade</li>
+                    </Link>
+                    <Link href="/kvkk/sorumluluk">
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Sınırlı Sorumluluk</li>
+                    </Link>
+                    <Link href="/kvkk/alisveris">
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Nasıl Alışveriş Yapacağım?</li>
+                    </Link>
                 </ul>
             </nav>
 

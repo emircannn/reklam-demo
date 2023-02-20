@@ -18,7 +18,7 @@ const cartSlice = createSlice ({
         },
 
         deleteProduct: (state, action) => { 
-            state.products = state.products.filter((item) => item._id !== action.payload._id)
+            state.products = state.products.filter((item) => item.id !== action.payload.id)
   
             state.total -= action.payload.price === true ? action.payload.cartprice + action.payload.afprint +  (action.payload.isDesign ? 0 : action.payload.selectedRadio) :
             action.payload.cartprice*(action.payload.width/100 )*(action.payload.height/100) + action.payload.afprint + (action.payload.isDesign ? 0 : action.payload.selectedRadio)
@@ -26,7 +26,7 @@ const cartSlice = createSlice ({
             toast.success("Ürün Sepetten Silindi", {autoClose: 1000})
           },
           increase: (state, action) => { 
-            const cartItem = state.products.find((item) => item._id === action.payload._id) 
+            const cartItem = state.products.find((item) => item.id === action.payload.id) 
             cartItem.quantity += 1
   
             state.total += action.payload.price === true ? action.payload.cartprice + action.payload.afprint :
@@ -34,7 +34,7 @@ const cartSlice = createSlice ({
   
           },
           descrease: (state, action) => { 
-            const cartItem = state.products.find((item) => item._id === action.payload._id) 
+            const cartItem = state.products.find((item) => item.id === action.payload.id) 
             cartItem.quantity -= 1
   
             state.total -= action.payload.price === true ? action.payload.cartprice + action.payload.afprint :

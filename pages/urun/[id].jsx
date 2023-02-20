@@ -10,7 +10,7 @@ import axios from 'axios'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { addProduct } from '@/redux/cartSlice'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 
 const index = ({product, category}) => {
@@ -68,8 +68,12 @@ const index = ({product, category}) => {
             afprint : printName ? printName.afprice : null, 
             selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
             priceName: priceName ? priceName.name : null, 
-            printName: printName ? printName.afname : null, }))
+            printName: printName ? printName.afname : null,
+            id: Date.now()
+        }))
     }
+
+   
   return (
     <React.Fragment>
         <Head>
