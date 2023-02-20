@@ -27,7 +27,6 @@ const index = ({product, category}) => {
     const [height, setHeight] = useState(0)
     const [amount, setAmount] = useState(0)
     const [tab, setTab] = useState(0)
-    const [addWage, setAddWage] = useState(0)
     const [selectedRadio, setSelectedRadio] = useState("0");
 
     const [settings, setSettings] = useState([])

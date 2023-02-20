@@ -40,34 +40,34 @@ const Footer = () => {
 
             <nav className='w-1/3 max-md:w-full'>
                 <ul className='text-white flex flex-col justify-center gap-2 items-center max-md:my-2 w-full'>
-                    <li className='hover:text-primary duration-300 cursor-pointer'>Ana Sayfa</li>
-                    <li className='hover:text-primary duration-300 cursor-pointer'>Tüm Ürünlerimiz</li>
-                    <li className='hover:text-primary duration-300 cursor-pointer'>Hakkımızda</li>
-                    <li className='hover:text-primary duration-300 cursor-pointer'>İletişim</li>
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Ana Sayfa</li>
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Tüm Ürünlerimiz</li>
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>Hakkımızda</li>
+                    <li className='hover:text-primary max-2xl:text-sm duration-300 cursor-pointer'>İletişim</li>
                 </ul>
             </nav>
 
             <div className='text-white flex flex-col items-center justify-center gap-2 w-1/3 max-md:w-full'>
-                <h4 className='uppercase font-semibold text-lg'>İletişim</h4>
+                <h4 className='uppercase font-semibold max-2xl:text-base text-lg'>İletişim</h4>
                 <div>
-                <h4 className='text-center font-semibold'>Adres:</h4>
-                <p className='text-center'>{settings[0]?.address}</p>
+                <h4 className='text-center max-2xl:text-sm font-semibold'>Adres:</h4>
+                <p className='text-center max-2xl:text-sm'>{settings[0]?.address}</p>
                 </div>
 
                 <div className='text-center'>
-                <h4 className=' font-semibold'>Telefon:</h4>
+                <h4 className=' font-semibold max-2xl:text-sm'>Telefon:</h4>
                 <a href={`tel:${settings[0]?.phone}`}>{settings[0]?.phone}</a>
                 </div>
 
                 <div className='text-center'>
-                <h4 className=' font-semibold'>Mail:</h4>
+                <h4 className=' font-semibold max-2xl:text-sm'>Mail:</h4>
                 <a target='_blank' href={`mailto:${settings[0]?.email}`} rel="noreferrer">{settings[0]?.email}</a>
                 </div>
             </div>
         </section>
 
         <section className='text-white w-[90%] mx-auto py-2 flex items-center justify-center'>
-            <h3 className='text-center'>Tüm Hakları Saklıdır. {currentYear} © <a href='tel:05525779332'><span className='text-primary font-semibold cursor-pointer hover:opacity-75 duration-300'>Emircan Yaşar</span></a></h3>
+            <h3 className='text-center max-2xl:text-sm'>Tüm Hakları Saklıdır. {currentYear} © <a href='tel:05525779332'><span className='text-primary font-semibold cursor-pointer hover:opacity-75 duration-300'>Emircan Yaşar</span></a></h3>
         </section>
     </footer>
   )

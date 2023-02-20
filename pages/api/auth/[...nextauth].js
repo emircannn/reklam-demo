@@ -44,8 +44,8 @@ const signInUser = async ({user, password}) => {
     const isMatch = await bcrypt.compare(password, user.password)
 
     if(!isMatch) {
+      toast.error("Şifre Yanlış!")
         throw new Error("Şifre Yanlış!")
-        toast.error("Şifre Yanlış!")
     }
 
     return user;

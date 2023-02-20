@@ -45,7 +45,7 @@ export default function App({ Component, pageProps:{session, ...pageProps} }) {
   return(
     <SessionProvider session={session}>
       <Provider store={store}>
-      <Loading/>
+        <Loading/>
       <ToastContainer />
         <Component {...pageProps} />
       </Provider>
