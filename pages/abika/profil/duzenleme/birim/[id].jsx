@@ -31,6 +31,7 @@ const index = ({product}) => {
   const [tech, setTech] = useState("")
   const [info, setInfo] = useState(product.info)
   const [isDesign, setIsDesign] = useState(product.isDesign)
+  const [subcategory, setSubcategory] = useState(product.subcategory)
 
   const [success, setSuccess] = useState(false)
 
@@ -129,6 +130,7 @@ const index = ({product}) => {
         favori: product.favori,
         price: product.price,
         isDesign: isDesign === "0" ? true : false,
+        subcategory: subcategory.toLowerCase()
       };
 
       const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`,newProduct);
@@ -144,10 +146,11 @@ const index = ({product}) => {
       }
     } catch (err) {
       console.log(err);
-      toast.error("Ürün Güncellendi Başarısız!");
+      toast.error("Ürün Güncellemesi Başarısız!");
     }
   };
 
+  const chooseCategory = categories.find((c) => c.title.toLowerCase() === category)
 
   return (
     <div className='p-16 max-md:p-8 max-sm:p-4 relative'>
@@ -164,39 +167,39 @@ const index = ({product}) => {
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide text-primary'>Resim</h2>
             <div className='flex items-center justify-between flex-wrap gap-4 max-lg:justify-center mt-4'>
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl ? ImageUrl : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl ? ImageUrl : `/uploads/${product.img[0] ? product.img[0] : '/images/upload.jpg'}`} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage}/>
             <span className='button'>Kapak Resimi</span>
             </label>
 
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl2 ? ImageUrl2 : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl2 ? ImageUrl2 : `/uploads/${product.img[1] ? product.img[1] : '/images/upload.jpg'}`} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage2}/>
             <span className='button'>2. Resmi Ekle</span>
             </label>
 
             <label className='flex flex-col items-center justify-center gap-4'>
-            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl3 ? ImageUrl3 : '/images/upload.jpg'} />
+            <Image alt='' className='w-[200px] max-2xl:w-[150px] object-cover h-[150px] rounded-md shadow-md border border-primary' width={500} height={500} src={ImageUrl3 ? ImageUrl3 : `/uploads/${product.img[2] ? product.img[2] : '/images/upload.jpg'}`} />
             <input className='hidden' type='file' id='image' name='image' onChange={getImage3}/>
             <span className='button'>3. Resmi Ekle</span>
             </label>
             </div>
 
             <h2 className='font-bold text-2xl max-2xl:text-lg mt-4 tracking-wide text-primary'>Başlık</h2>
-            <input value={title} type='text' onChange={(e) => setTitle(e.target.value)} placeholder='Ürün Başlığı...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            <input value={title} type='text' onChange={(e) => setTitle(e.target.value)} placeholder='Ürün Başlığı...' className="h-10 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Kısa Açıklama</h2>
-            <textarea value={desc} type='text' onChange={(e) => setDesc(e.target.value)} placeholder='Kısa Açıklama...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            <textarea value={desc} type='text' onChange={(e) => setDesc(e.target.value)} placeholder='Kısa Açıklama...' className="h-16 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Ürün Özelliği</h2>
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
             <input onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} type='text' placeholder='Ürün Özelliği...' 
-            name='name' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            name='name' className="h-10 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
             <input type='number' placeholder='Fiyatı...' onChange={(e) =>setPropertie({ ...propertie, [e.target.name]: e.target.value })} 
-            name='price' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            name='price' className="h-10 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             </div>
             <button onClick={handlePrices} className='button w-full mb-4'>Ekle</button>
 
@@ -211,9 +214,9 @@ const index = ({product}) => {
 
             <div className='flex flex-col items-center justify-center gap-4 w-full'>
             <div className='flex items-center justify-center gap-4 w-full'>
-            <input type='text' onChange={(e) =>setPrint({ ...print, [e.target.name]: e.target.value })}  name='afname' placeholder='Baskı Özelliği...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            <input type='text' onChange={(e) =>setPrint({ ...print, [e.target.name]: e.target.value })}  name='afname' placeholder='Baskı Özelliği...' className="h-10 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
 
-            <input type='number' onChange={(e) =>setPrint({ ...print, [e.target.name]: e.target.value })}  name='afprice' placeholder='Fiyatı...' className="h-12 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
+            <input type='number' onChange={(e) =>setPrint({ ...print, [e.target.name]: e.target.value })}  name='afprice' placeholder='Fiyatı...' className="h-10 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             </div>
             <button  onClick={handlePrint} className='button w-full mb-4'>Ekle</button>
 
@@ -250,10 +253,22 @@ const index = ({product}) => {
                       ))}
                   </select>
             </div>
+
+            <h2 className='font-bold max-2xl:text-lg text-2xl tracking-wide mt-4 text-primary'>Alt Kategori Seç</h2>
+            <div className='flex flex-col text-sm text-white'>
+                  
+                  <select className=' w-full p-2 
+                  outline-none mt-1 bg-primary text-white' 
+                  name="" id="" onChange={(e) => setSubcategory(e.target.value)}>
+                      {chooseCategory?.subtitle.length > 0 && chooseCategory?.subtitle.map((c, index) =>(
+                          <option key={index} value={c.toLowerCase()}>{c}</option>
+                      ))}
+                  </select>
+            </div>
             
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-4 text-primary'>Detaylar</h2>
             <div className='mt-4'>
-            <input type='text'name='dtitle' onChange={(e) =>setDetail({ ...detail, [e.target.name]: e.target.value })}  placeholder='Detay Başlğı...' className="h-12 border-2 border-primary outline-none px-4 peer w-full"/>
+            <input type='text'name='dtitle' onChange={(e) =>setDetail({ ...detail, [e.target.name]: e.target.value })}  placeholder='Detay Başlğı...' className="h-10 border-2 border-primary outline-none px-4 peer w-full"/>
             <textarea type='text' name='dparagraph' onChange={(e) =>setDetail({ ...detail, [e.target.name]: e.target.value })}  placeholder='Detay Açıklaması...' className="h-16 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             <button onClick={handleDetail} className='button w-full'>Detay Ekle</button>
 
@@ -270,7 +285,7 @@ const index = ({product}) => {
 
             <h2 className='font-bold text-2xl max-2xl:text-lg tracking-wide mt-6 text-primary'>Teknik Bilgiler</h2>
             <div className='mt-4'>
-            <input type='text' name='ititle' onChange={(e) =>setTech({ ...tech, [e.target.name]: e.target.value })} placeholder='Teknik Bilgi Başlğı...' className="h-12 border-2 border-primary outline-none px-4 peer w-full"/>
+            <input type='text' name='ititle' onChange={(e) =>setTech({ ...tech, [e.target.name]: e.target.value })} placeholder='Teknik Bilgi Başlğı...' className="h-10 border-2 border-primary outline-none px-4 peer w-full"/>
             <textarea type='text' name='iparagraph' onChange={(e) =>setTech({ ...tech, [e.target.name]: e.target.value })} placeholder='Teknik Bilgi Açıklaması...' className="h-16 border-2 mt-4 border-primary outline-none px-4 peer w-full"/>
             <button onClick={handleInfo} className='button mt-2 w-full'>Teknik Bilgi Ekle</button>
 

@@ -1,12 +1,13 @@
 import axios from 'axios';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { BsFillTrashFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 const Categories = () => {
 
-
+  const {push} = useRouter();
   const [ImageUrl, setImageUrl] = useState('')
   const [image, setImage] = useState(null)
   const [title, setTitle] = useState("")
@@ -39,7 +40,7 @@ const Categories = () => {
 
   const handleCreate = async () => {
     try {     
-      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {title: title, image: image.name});
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/categories`, {title: title, image: image.name, subtitle: []});
       setCategories([...categories, res?.data]);
       setTitle("")
       setImageUrl('')
@@ -86,8 +87,10 @@ const Categories = () => {
         
         {categories.length > 0 ? categories.map((category) =>(
           <div key={category._id} className='bg-slate-200 rounded-md overflow-hidden shadow-xl flex items-center justify-between w-full gap-8 group'>
-          <div className='w-1/3 h-[100px] overflow-hidden'>
+          <div className='w-1/3 h-[100px] relative overflow-hidden'>
           <Image alt='' className='w-full h-full object-cover group-hover:scale-110 duration-300' src={`/uploads/${category.image}`} width={500} height={500}/>
+          <span onClick={() => push(`/abika/profil/altkategori/${category._id}`)} className='absolute top-0 w-full h-full bg-black/70 flex items-center justify-center z-20 text-white font-semibold opacity-0 hover:opacity-100 
+          duration-300 cursor-pointer'>Alt Kategorileri Düzenle</span>
           </div>
           <h3 className='font-medium text-xl text-primary'>{category.title}</h3>
 

@@ -9,6 +9,9 @@ const CategorySchema = new mongoose.Schema(
         },
         image: {
             type: String,
+        },
+        subtitle : {
+            type: [String]
         }
     },
     {timestamps: true}
