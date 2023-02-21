@@ -13,8 +13,8 @@ export default NextAuth({
       name: "Credentials",
 
       credentials: {
-        username: { label: "Username", type: "text", placeholder: "jsmith" },
-        password: { label: "Password", type: "password" },
+        username: { label: "username", type: "text", placeholder: "jsmith" },
+        password: { label: "password", type: "password" },
     },
     async authorize(credentials, req) {
 
@@ -23,6 +23,7 @@ export default NextAuth({
         const user = await User.findOne({email: email})
 
         if(!user) {
+          toast.error("Kullanıcı Bulunamadı")
             throw new Error("Kullanıcı Bulunamadı")
         }
 

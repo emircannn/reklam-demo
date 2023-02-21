@@ -24,6 +24,7 @@ const giris = () => {
     try {
       const res = await signIn("credentials", options);
       actions.resetForm();
+      
     } catch (err) {
       toast.error("Giriş İşlemi Başarısız!")
       console.log(err);

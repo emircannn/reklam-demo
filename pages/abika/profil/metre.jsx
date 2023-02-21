@@ -202,8 +202,9 @@ const metre = () => {
             <button onClick={handlePrices} className='button w-full mb-4'>Ekle</button>
 
             {properties.map((item, index) => (
-              <h4 onClick={() => {
+              <h4 onClick={() => {if(confirm('Silmek İstediğinize Emin Misiniz?')){
                 setProperties(properties.filter((_,i) => i !== index))
+              }
             }} key={index} className='font-semibold text-xl max-2xl:text-base hover:text-primary duration-300 cursor-pointer'>{item.name} - <span className='font-bold'>Fiyatı : {item.price} TL</span></h4>
             ))}
             </div>
@@ -219,8 +220,9 @@ const metre = () => {
             <button  onClick={handlePrint} className='button w-full mb-4'>Ekle</button>
 
             {afterprint.map((item, index) => (
-              <h4 onClick={() => {
+              <h4 onClick={() => {if(confirm('Silmek İstediğinize Emin Misiniz?')){
                 setAfterprint(afterprint.filter((_,i) => i !== index))
+              }
             }} key={index} className='font-semibold max-2xl:text-base text-xl hover:text-primary duration-300 cursor-pointer'>{item.afname} - <span className='font-bold'>Fiyatı : {item.afprice} TL</span></h4>
             ))}
             </div>
@@ -270,8 +272,9 @@ const metre = () => {
             <button onClick={handleDetail} className='button w-full'>Detay Ekle</button>
 
             {prodetails.map((item, index) =>(
-              <div onClick={() => {
+              <div onClick={() => {if(confirm('Silmek İstediğinize Emin Misiniz?')){
                 setProdetails(prodetails.filter((_,i) => i !== index))
+              }
             }} key={index} className='cursor-pointer hover:text-primary duration-300'>
               <h3 className='font-bold text-2xl max-2xl:text-base tracking-wide mt-4'>{item.dtitle}</h3>
               <p className='mt-2 max-2xl:text-base font-medium'>{item.dparagraph}</p>
@@ -287,8 +290,9 @@ const metre = () => {
             <button onClick={handleInfo} className='button mt-2 w-full'>Teknik Bilgi Ekle</button>
 
             {info.map((item, index) =>(
-              <div onClick={() => {
+              <div onClick={() => {if(confirm('Silmek İstediğinize Emin Misiniz?')){
                 setInfo(info.filter((_,i) => i !== index))
+              }
             }} key={index} className='cursor-pointer hover:text-primary duration-300'>
               <h3 className='font-bold max-2xl:text-base text-2xl tracking-wide mt-4'>{item.ititle}</h3>
               <p className='mt-2 max-2xl:text-base font-medium'>{item.iparagraph}</p>

@@ -66,7 +66,7 @@ const Profil = () => {
                     <AiFillSetting size={20}/>
                     <button className='uppercase font-medium max-2xl:text-sm text-lg'>Ayarlar</button>
                 </li>
-                <li onClick={signOutAdmin} className={`bg-primary text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 6 && "bg-black"}`}>
+                <li onClick={signOutAdmin} className={`bg-rose-600 text-white w-full items-center justify-center flex p-2 select-none gap-2 cursor-pointer border-white border-y hover:bg-black duration-300 ${tab === 6 && "bg-black"}`}>
                     <RxExit size={20}/>
                     <button className='uppercase font-medium max-2xl:text-sm text-lg'>Çıkış</button>
                   </li>
