@@ -4,31 +4,20 @@ import Header from '@/components/Header'
 import Head from 'next/head'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
-import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsClockFill, BsUpload } from 'react-icons/bs'
-import { BiHappyAlt, BiSupport} from 'react-icons/bi'
+import { BsFillCalculatorFill, BsBasket3Fill, BsTruck, BsUpload } from 'react-icons/bs'
 import axios from 'axios'
 import { AiOutlineArrowRight } from 'react-icons/ai'
 import { useRouter } from 'next/router'
 import { addProduct } from '@/redux/cartSlice'
 import { useDispatch } from 'react-redux'
+import Properties from '@/components/UI/Properties'
+import { toast } from 'react-toastify'
 
 
 const index = ({product, category}) => {
 
     const {push} = useRouter()
     const dispatch = useDispatch()
-
-    const [price, setPrice] = useState(product.properties[0]?._id);
-    const [afprint, setAfprint] = useState(product.afterprint[0]?._id);
-    const [wage, setWage] = useState(price.price)
-    const [selectedImage, setSelectedImage] = useState(product.img[0]);
-    const [zoom, setZoom] = useState(false);
-    const [width, setWidth] = useState(0)
-    const [height, setHeight] = useState(0)
-    const [amount, setAmount] = useState(0)
-    const [tab, setTab] = useState(0)
-    const [selectedRadio, setSelectedRadio] = useState("0");
-
     const [settings, setSettings] = useState([])
 
     useEffect(() => {
@@ -42,6 +31,20 @@ const index = ({product, category}) => {
       }
       getSettings()
     }, [])
+
+    const [price, setPrice] = useState(product.properties[0]?._id);
+    const [afprint, setAfprint] = useState(product.afterprint[0]?._id);
+    const [wage, setWage] = useState(price.price)
+    const [selectedImage, setSelectedImage] = useState(product.img[0]);
+    const [zoom, setZoom] = useState(false);
+    const [width, setWidth] = useState(0)
+    const [height, setHeight] = useState(0)
+    const [amount, setAmount] = useState(0)
+    const [tab, setTab] = useState(0)
+    const [selectedRadio, setSelectedRadio] = useState("0");
+    const [file, setFile] = useState(null);
+    const [filePath, setFilePath] = useState(null);
+    const [progress, setProgress] = useState(0);
 
 
     const handleOptionChange = (event) => {
@@ -61,19 +64,111 @@ const index = ({product, category}) => {
     const printName = product.afterprint.find((p) => p._id == afprint)
 
     const handleAdd = () => {
-        dispatch(addProduct({...product, quantity : 1, 
-            width: width ? parseInt(width) : null, 
-            height: height ? parseInt(height) : null, 
-            cartprice: priceName ? priceName.price : null, 
-            afprint : printName ? printName.afprice : null, 
-            selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
-            priceName: priceName ? priceName.name : null, 
-            printName: printName ? printName.afname : null,
-            id: Date.now()
-        }))
+        if(product.price === false){
+            if(height === 0 && width === 0){
+                toast.error("Lütfen Ebat Bilgilerini Girin!", {autoClose: 1000})
+                return
+            }else if(product.isDesign === false && selectedRadio === "1"){
+                if(filePath === null){
+                    toast.error("Lütfen Tasarımınızı Yükleyin!", {autoClose: 1000})
+                    return
+                } else{
+                    dispatch(addProduct({...product, quantity : 1, 
+                        width: width ? parseInt(width) : null, 
+                        height: height ? parseInt(height) : null, 
+                        cartprice: priceName ? priceName.price : null, 
+                        afprint : printName ? printName.afprice : null, 
+                        selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
+                        priceName: priceName ? priceName.name : null, 
+                        printName: printName ? printName.afname : null,
+                        id: Date.now(),
+                        path: filePath
+                    }))
+                }
+            } else{
+                dispatch(addProduct({...product, quantity : 1, 
+                    width: width ? parseInt(width) : null, 
+                    height: height ? parseInt(height) : null, 
+                    cartprice: priceName ? priceName.price : null, 
+                    afprint : printName ? printName.afprice : null, 
+                    selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
+                    priceName: priceName ? priceName.name : null, 
+                    printName: printName ? printName.afname : null,
+                    id: Date.now(),
+                    path: filePath
+                }))
+            }
+        } 
+        else {
+            if(product.isDesign === false && selectedRadio === "1"){
+                if(filePath === null){
+                    toast.error("Lütfen Tasarımınızı Yükleyin!", {autoClose: 1000})
+                    return
+                } else{
+                    dispatch(addProduct({...product, quantity : 1, 
+                        width: width ? parseInt(width) : null, 
+                        height: height ? parseInt(height) : null, 
+                        cartprice: priceName ? priceName.price : null, 
+                        afprint : printName ? printName.afprice : null, 
+                        selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
+                        priceName: priceName ? priceName.name : null, 
+                        printName: printName ? printName.afname : null,
+                        id: Date.now(),
+                        path: filePath
+                    }))
+                }
+            } else{
+                dispatch(addProduct({...product, quantity : 1, 
+                    width: width ? parseInt(width) : null, 
+                    height: height ? parseInt(height) : null, 
+                    cartprice: priceName ? priceName.price : null, 
+                    afprint : printName ? printName.afprice : null, 
+                    selectedRadio : selectedRadio === "0" ? settings[0]?.designWage : 0,
+                    priceName: priceName ? priceName.name : null, 
+                    printName: printName ? printName.afname : null,
+                    id: Date.now(),
+                    path: filePath
+                }))
+            }
+        }
     }
 
-   
+
+    /* Tasarim Alma */
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+      };
+
+    const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (!file) 
+    {
+        toast.error("Tasarımınızı Yükleyin")
+            return
+    };
+
+    const formData = new FormData();
+        formData.append('file', file);
+
+    try {
+        const uploadResponse = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`, formData, {
+            onUploadProgress: (progressEvent) => {
+                const percentage = parseInt(
+                  Math.round((progressEvent.loaded * 100) / progressEvent.total)
+                );
+                setProgress(percentage);
+              },
+          });
+        setFilePath(uploadResponse.data.path) 
+
+    } catch (err) {
+        toast.error(err.response.data.message);
+        console.log(err)
+    }
+  };
+
   return (
     <React.Fragment>
         <Head>
@@ -152,10 +247,20 @@ const index = ({product, category}) => {
                     }
 
                     {
-                        selectedRadio === "1" && <form >
-                        <input type="file" className='opacity-0'/>
-                        <button className='flex flex-col items-center justify-center w-full bg-slate-200 p-8 rounded-xl gap-4 font-bold text-black/75' type="submit"><BsUpload size={30}/> (.jpg, .png, .pdf, .psd, .eps, .tiff, .ai)</button>
-                    </form>
+                        selectedRadio === "1" && <form onSubmit={handleSubmit} encType="multipart/form-data">
+                            <label htmlFor='design ' className='flex relative flex-col items-center justify-center w-full bg-slate-200 p-4 rounded-xl gap-2 font-bold text-black/75'>
+                            <BsUpload size={30}/>
+                            <span>{file ? file.name : `(.jpg, .jpeg, .png, .pdf, .eps, .tiff, .zip(.ai, .psd)) - Max. 100 MB`}</span>
+                            <div className="relative w-full h-3 bg-gray-300 rounded-full overflow-hidden">
+                                <div
+                                    className="absolute top-0 left-0 h-full bg-primary"
+                                    style={{ width: `${progress}%` }}
+                                />
+                            </div>
+                            <input id='design' name='file' onChange={handleFileChange} type="file" className='opacity-0 absolute top-0 bottom-0 right-0 left-0'/>
+                            </label>
+                        {file && <button type='submit' className='button w-full mt-2' >Yükle</button>}
+                        </form>
                     }
 
                     <div className='flex items-center justify-center gap-4'>
@@ -189,38 +294,7 @@ const index = ({product, category}) => {
                         </div>
                     ))}
                 </div>}
-
-
-                <div className='w-full grid grid-cols-4 gap-2 max-md:grid-cols-2'>
-                    <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
-                        <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BsTruck size={30}/></div>
-                        <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold max-2xl:text-sm uppercase text-center'>Ücretsiz Kargo</span>
-                        <span className='text-black/50 max-2xl:text-sm font-medium text-center'>{settings[0]?.freeShipping} TL üzeri kargo bedava</span>
-                        </div>
-                    </div>
-                    <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
-                        <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BiSupport size={30}/></div>
-                        <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Uzmanlarla Birebir Görüşme</span>
-                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>{settings[0]?.phone} (Whatsapp Destek)</span>
-                        </div>
-                    </div>
-                    <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
-                        <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BsClockFill size={30}/></div>
-                        <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Hızlı Kargo</span>
-                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>Standart ürünler 48 saate kargoda</span>
-                        </div>
-                    </div>
-                    <div className='flex flex-col items-center justify-start gap-8 my-8 group'>
-                        <div className='p-4 rounded-full cursor-pointer border-2 border-primary text-primary group-hover:text-white group-hover:bg-primary duration-300'><BiHappyAlt size={30}/></div>
-                        <div className='flex flex-col justify-center items-center'>
-                        <span className='font-semibold uppercase max-2xl:text-sm text-center'>Mutlu Müşteriler</span>
-                        <span className='text-black/50 font-medium max-2xl:text-sm text-center'>Siparişten teslimata kadar aktif iletişim</span>
-                        </div>
-                    </div>
-                </div>
+                        <Properties/>
             </div>
         </section>
         <Footer/>
