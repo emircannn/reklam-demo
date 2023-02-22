@@ -19,7 +19,7 @@ const Header = () => {
   const [search, setSearch] = useState(false)
   const {data: session} = useSession()
 
-  const cartLength = useSelector((state) => state.cart.products.length)
+  const cartLength = useSelector((state) => state.cartSlice.products.length)
 
   return (
     <header className='border-b border-black/10 rounded-b-2xl sticky top-0 z-20 bg-white shadow-lg'>

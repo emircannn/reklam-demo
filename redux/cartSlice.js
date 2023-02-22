@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 
 
+
 const cartSlice = createSlice ({
     name: 'cart',
     initialState: {
@@ -15,6 +16,7 @@ const cartSlice = createSlice ({
             toast.success("Ürün Sepete Eklendi", {autoClose: 1000})
             state.total += action.payload.price === true ? action.payload.cartprice + action.payload.afprint +  (action.payload.isDesign ? 0 : action.payload.selectedRadio) :
             action.payload.cartprice*(action.payload.width/100 )*(action.payload.height/100) + action.payload.afprint + (action.payload.isDesign ? 0 : action.payload.selectedRadio)
+
         },
 
         deleteProduct: (state, action) => { 

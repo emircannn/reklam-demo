@@ -11,9 +11,14 @@ import NProgress from "nprogress";
 import "../styles/globals.css";
 import "nprogress/nprogress.css";
 
-import { Provider } from 'react-redux'
-import store from '../redux/store'
 
+// Redux
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '../redux/store';
+
+
+//loading
 Router.events.on("routeChangeStart", () => NProgress.start());
 Router.events.on("routeChangeComplete", () => NProgress.done());
 Router.events.on("routeChangeError", () => NProgress.done());
@@ -45,9 +50,11 @@ export default function App({ Component, pageProps:{session, ...pageProps} }) {
   return(
     <SessionProvider session={session}>
       <Provider store={store}>
+      <PersistGate persistor={persistor} loading={<div>Loading...</div>}>
         <Loading/>
       <ToastContainer />
         <Component {...pageProps} />
+      </PersistGate>
       </Provider>
     </SessionProvider>
     )

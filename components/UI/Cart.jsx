@@ -1,4 +1,5 @@
 import { deleteProduct, descrease, increase } from '@/redux/cartSlice'
+import { getLocalStorage } from '@/util/localstorage'
 import axios from 'axios'
 import Image from 'next/image'
 import React, { useEffect, useState } from 'react'
@@ -6,14 +7,16 @@ import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BsFillTrashFill } from 'react-icons/bs'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { useDispatch, useSelector } from 'react-redux'
+import { getDataFromLocalStorage } from '../../util/localStorageUtils';
 
 const Cart = ({setCart, cart}) => {
 
     const [settings, setSettings] = useState([])
     const dispatch = useDispatch()
 
-    const cartItems = useSelector((state) => state.cart.products)
-    const cartTotal = useSelector((state) => state.cart.total)
+    const cartItems = useSelector((state) =>  state.cartSlice.products)
+    const cartTotal = useSelector((state) =>  state.cartSlice.total)
+
 
     const [cartTotalEnd, setCartTotalEnd] = useState(0)
 
