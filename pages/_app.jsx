@@ -50,7 +50,7 @@ export default function App({ Component, pageProps:{session, ...pageProps} }) {
   return(
     <SessionProvider session={session}>
       <Provider store={store}>
-      <PersistGate persistor={persistor} loading={<div>Loading...</div>}>
+      <PersistGate persistor={persistor} loading={<Loading/>}>
         <Loading/>
       <ToastContainer />
         <Component {...pageProps} />

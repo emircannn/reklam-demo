@@ -1,22 +1,25 @@
 import { deleteProduct, descrease, increase } from '@/redux/cartSlice'
-import { getLocalStorage } from '@/util/localstorage'
 import axios from 'axios'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { AiOutlineClose, AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai'
 import { BsFillTrashFill } from 'react-icons/bs'
 import OutsideClickHandler from 'react-outside-click-handler'
 import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 import { getDataFromLocalStorage } from '../../util/localStorageUtils';
 
 const Cart = ({setCart, cart}) => {
 
+  const { data: session } = useSession();
+  const { push } = useRouter();
     const [settings, setSettings] = useState([])
     const dispatch = useDispatch()
 
     const cartItems = useSelector((state) =>  state.cartSlice.products)
     const cartTotal = useSelector((state) =>  state.cartSlice.total)
-
 
     const [cartTotalEnd, setCartTotalEnd] = useState(0)
 
@@ -42,6 +45,20 @@ const Cart = ({setCart, cart}) => {
       }
       calculateTotal()
     }, [cartTotal, settings])
+
+    const goPayment = () => {
+      if(cartTotalEnd < settings[0]?.minwage ){
+        toast.error('Tutar, Min. Sepet Tutarının Altında!')
+        return
+      }else{
+        if(session === null){
+            toast.error(`Siparişi Tamamlamak için Oturum Açın!`)
+            return
+        }else{
+          push("/odeme")
+        }
+      }
+    }
 
   return (
     <>
@@ -97,7 +114,7 @@ const Cart = ({setCart, cart}) => {
           </div>
           <span className='text-xs text-[11px] text-center font-bold uppercase text-black/60'>{settings[0]?.freeShipping.toFixed(2)}₺ Üzeri Kargo Bedava. - Kargo Ücreti {settings[0]?.shippingWage.toFixed(2)}₺</span>
           <span className='text-xs text-[11px] text-center font-bold uppercase text-black/60'>Fiyatlarımıza KDV Dahildir.</span>
-          <button className='button w-full !uppercase'>Siparişi Tamamla</button>
+          <button onClick={goPayment} className='button w-full !uppercase'>Siparişi Tamamla</button>
         </div>
         </div>
         

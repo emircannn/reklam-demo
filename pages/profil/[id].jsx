@@ -52,7 +52,7 @@ const Index = ({user}) => {
                     <AiFillHome size={20}/>
                     <button>Hesap</button>
                 </li>
-                <li onClick={()=> setTabs(2)} className={`border font-semibold justify-center w-full p-3 flex gap-3 items-center cursor-pointer 
+                <li onClick={()=> setTabs(1)} className={`border font-semibold justify-center w-full p-3 flex gap-3 items-center cursor-pointer 
                 hover:bg-primary hover:text-white duration-300 ${tabs === 1 && "bg-primary text-white"}`}>
                     <GiCardboardBoxClosed size={20}/>
                     <button>Siparişlerim</button>

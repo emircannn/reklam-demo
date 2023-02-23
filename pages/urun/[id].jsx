@@ -240,8 +240,10 @@ const index = ({product, category}) => {
 
                     { product.isDesign === false &&
                         <div className='flex items-center justify-start gap-4 my-4'>
-                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1"><input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1">
-                            </input> Tasarım Desteği İstiyorum - {settings[0]?.designWage}₺</label>
+                        <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option1">
+                            <input type="radio" name="option" value="0" onChange={handleOptionChange} checked={selectedRadio === "0"} id="option1">
+                            </input> Tasarım Desteği İstiyorum - {settings[0]?.designWage}₺
+                        </label>
                         <label className='font-semibold max-2xl:text-sm text-black/75' htmlFor="option2"><input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> Kendi Tasarımım Var.</label>
                         </div>
                     }
@@ -257,7 +259,7 @@ const index = ({product, category}) => {
                                     style={{ width: `${progress}%` }}
                                 />
                             </div>
-                            <input id='design' name='file' onChange={handleFileChange} type="file" className='opacity-0 absolute top-0 bottom-0 right-0 left-0'/>
+                            <input onClick={()=> setProgress(0)} id='design' name='file' onChange={handleFileChange} type="file" className='opacity-0 absolute top-0 bottom-0 right-0 left-0'/>
                             </label>
                         {file && <button type='submit' className='button w-full mt-2' >Yükle</button>}
                         </form>
@@ -265,7 +267,7 @@ const index = ({product, category}) => {
 
                     <div className='flex items-center justify-center gap-4'>
                      {product.afterprint.length > 0 && product.price === false ? <button onClick={calculate} className='button flex items-center justify-center gap-2 mt-4 w-full'>Hesapla <BsFillCalculatorFill/></button> : null}
-                    <button onClick={handleAdd} className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
+                    <button onClick={() => {handleAdd(), setProgress(0)}} className='button flex items-center justify-center gap-2 mt-4 w-full'>Sepete Ekle <BsBasket3Fill/></button>
                     </div>
                 </div>
             </div>
