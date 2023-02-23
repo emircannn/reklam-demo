@@ -22,18 +22,27 @@ const index = ({userList}) => {
     const [filePath, setFilePath] = useState(null);
     const [checkedPLT1, setCheckedPLT1] = useState(false);
     const [checkedPLT2, setCheckedPLT2] = useState(false);
-    const [name, setName] = useState(user?.name);
+    const [cartTotalEnd, setCartTotalEnd] = useState(0)
+
+    const [name, setName] = useState(user?.name ? user?.name : "");
+    const [email, setEmail] = useState(user?.email ? user?.email : "");
+    const [phone, setPhone] = useState("");
+    const [province, setProvince] = useState("");
+    const [district, setDistrict] = useState("");
+    const [address, setAddress] = useState("");
 
     const cartItems = useSelector((state) =>  state.cartSlice.products)
     const cartTotal = useSelector((state) =>  state.cartSlice.total)
 
-    const [cartTotalEnd, setCartTotalEnd] = useState(0)
-
     useEffect(() => {
         if(session ===null) {
             push("/");
+        }else{
+            if(cartItems.length === 0 && cartTotalEnd < settings[0]?.minwage){
+                push("/");
+            }
         }
-    }, [session, push])
+    }, [session, push, cartItems.length, cartTotalEnd, settings])
 
     useEffect(() => {
       const getSettings = async () => {
@@ -108,45 +117,46 @@ const index = ({userList}) => {
   return (
     <React.Fragment>
         <Header/>
-        <section className='min-h-[calc(100vh_-_409px)] max-xl:min-h-[calc(100vh_-_349px)] p-12 max-md:p-4 max-2xl:min-h-[calc(100vh_-_385px)] w-[90%] mx-auto'>
+        <section className='min-h-[calc(100vh_-_92px)]  p-12 max-md:p-4 max-2xl:min-h-[calc(100vh_-_385px)] flex items-center justify-center flex-col w-[90%] mx-auto'>
+            <div>
             <h1 className='uppercase font-bold text-xl max-2xl:text-base text-primary mb-4'>Ödeme</h1>
-            <div className='w-full h-full max-lg:flex-col flex gap-4'>
+            <div className='w-full h-full max-lg:flex-col flex items-start justify-center gap-4'>
                 <div className='w-2/3 bg-slate-200 max-lg:w-full p-4 h-full rounded-xl'>
                         <h2 className='uppercase font-bold text-lg max-2xl:text-sm text-center text-primary mb-4'>Adres ve İletişim Bilgileri</h2>
 
                         <div className='w-full flex flex-col items-start justify-center max-sm:px-2 px-8'>
                             
                             <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İsim - Soyisim</h4>
-                            <input value={name} placeholder={name} onChange={(e) => setName(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                            <input value={name} placeholder="İsim Soyisim giriniz..." onChange={(e) => setName(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                             
                             
                             <div className='flex items-start justify-center mt-4 gap-4 w-full'>
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>Telefon Numarası</h4>
-                                <input type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input placeholder='Telefon numaranızı giriniz...' onChange={(e) => setPhone(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
 
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>Email</h4>
-                                <input type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email adresinizi giriniz...' type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
                             </div>
 
                             <div className='flex items-start justify-center mt-4 gap-4 w-full'>
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İl</h4>
-                                <input type="text" className='h-10 rounded-md max-2xl:text-sm border-2 border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input placeholder='İl bilgisini giriniz...' onChange={(e) => setProvince(e.target.value)}  type="text" className='h-10 rounded-md max-2xl:text-sm border-2 border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
 
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İlçe</h4>
-                                <input type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input placeholder='İlçe bilgisini giriniz...' onChange={(e) => setDistrict(e.target.value)}  type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
                             </div>
 
                             <div className='w-full mt-4'>
                                 <h4 className='font-semibold max-2xl:text-sm text-primary mb-2'>Mahalle, Cadde/Sokak, Bina No</h4>
-                                <textarea type="text" className='h-16 max-2xl:text-sm rounded-md border-2 border-primary outline-none px-4 w-full mx-auto'/>
+                                <textarea onChange={(e) => setAddress(e.target.value)} placeholder='Mahalle, Cadde/Sokak, Bina No gibi bilgileri giriniz...' type="text" className='h-16 max-2xl:text-sm rounded-md border-2 border-primary outline-none px-4 w-full mx-auto'/>
                             </div>
 
                             
@@ -192,17 +202,18 @@ const index = ({userList}) => {
                         <label className=''>
                             <input type="checkbox" onChange={handleChange1} />
                             <span className='text-sm max-2xl:text-xs font-medium'> <span className='font-semibold text-primary cursor-pointer'>Ön Bilgilendirme Formunu</span> ve 
-                            <span className='font-semibold text-primary cursor-pointer'> Mesafeli Satış Sözleşmesini</span> kabul ediyorum.</span>
+                            <span onClick={() => push("/kvkk/mesafeli-satis")} className='font-semibold text-primary cursor-pointer'> Mesafeli Satış Sözleşmesini</span> kabul ediyorum.</span>
                         </label>
                         <label className=''>
                             <input type="checkbox" onChange={handleChange2} />
                             <span className='text-sm max-2xl:text-xs font-medium'> <span className='font-semibold text-primary cursor-pointer'>Kullanıcı Sözleşmesi</span> ve 
-                            <span className='font-semibold text-primary cursor-pointer'> Gizlilik Sözleşmesini</span> Okudum ve kabul ediyorum.</span>
+                            <span onClick={() => push("/kvkk/gizlilik-sozlesmesi")} className='font-semibold text-primary cursor-pointer'> Gizlilik Sözleşmesini</span> Okudum ve kabul ediyorum.</span>
                         </label>
                         </div>
 
                         <button className='button w-full mt-6'>{selectedRadio === "1" ? 'Siparişi Tamamla' : "Güvenli Ödeme"}</button>
                 </div>
+            </div>
             </div>
         </section>
         <Footer/>
