@@ -1,12 +1,13 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import { reset } from '@/redux/cartSlice';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { BsUpload } from 'react-icons/bs';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 
 const index = ({userList}) => {
@@ -22,14 +23,17 @@ const index = ({userList}) => {
     const [filePath, setFilePath] = useState(null);
     const [checkedPLT1, setCheckedPLT1] = useState(false);
     const [checkedPLT2, setCheckedPLT2] = useState(false);
+    const [checkedBox, setCheckedBox] = useState(false);
     const [cartTotalEnd, setCartTotalEnd] = useState(0)
 
-    const [name, setName] = useState(user?.name ? user?.name : "");
-    const [email, setEmail] = useState(user?.email ? user?.email : "");
-    const [phone, setPhone] = useState("");
-    const [province, setProvince] = useState("");
-    const [district, setDistrict] = useState("");
-    const [address, setAddress] = useState("");
+    const [name, setName] = useState(user?.name ? user?.name : '');
+    const [uemail, setUEmail] = useState(user?.email ? user?.email : '');
+    const [phone, setPhone] = useState('');
+    const [province, setProvince] = useState('');
+    const [district, setDistrict] = useState('');
+    const [address, setAddress] = useState('');
+
+    const dispatch = useDispatch()
 
     const cartItems = useSelector((state) =>  state.cartSlice.products)
     const cartTotal = useSelector((state) =>  state.cartSlice.total)
@@ -114,6 +118,56 @@ const index = ({userList}) => {
     setCheckedPLT2(checked);
   };
 
+//odeme
+
+//db sipariş
+  const order = {
+    customer: name,
+    products: cartItems,
+    address: province + ', ' + district + ', ' + address,
+    email: uemail,
+    phone: phone,
+    total: cartTotalEnd,
+    status: 0,
+    method: selectedRadio === "0" ? 0 : 1,
+    dekont: filePath,
+    shipping: null,
+    shipping_code: null
+  }
+
+
+
+  const getPayment = async() => {  
+    if(name === '' || phone === '' || uemail === '' || province === '' || district === '' || address === ''){
+      toast.error('Lütfen Bilgilerinizi Giriniz!', {autoClose: 1000})
+      return
+    }else {
+      if(selectedRadio === '1' && filePath === null){
+        toast.error('Lütfen Dekontunuzu Yükleyin!', {autoClose: 1000})
+        return
+      }else if (selectedRadio === '0'){
+        toast.error('Sanal Pos Hizmet Dışı!', {autoClose: 1000})
+        return
+      }else if (selectedRadio === '1' && filePath) {
+        if (checkedPLT1 === true && checkedPLT2 === true){
+          try {
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/prorders`, order)
+            if (res.status === 200) {
+              toast.success("İşlem Başarılı", {autoClose: 1000})
+              dispatch(reset())
+            }
+          } catch (err) {
+            console.log(err)
+            toast.error("")
+          }
+        }else{
+          setTimeout(setCheckedBox(true), 2000)
+          toast.error("Lütfen Sözleşmeleri Onaylayın!", {autoClose: 1000})
+        }
+      }
+    }
+  }
+
   return (
     <React.Fragment>
         <Header/>
@@ -127,36 +181,36 @@ const index = ({userList}) => {
                         <div className='w-full flex flex-col items-start justify-center max-sm:px-2 px-8'>
                             
                             <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İsim - Soyisim</h4>
-                            <input value={name} placeholder="İsim Soyisim giriniz..." onChange={(e) => setName(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                            <input required value={name} placeholder="İsim Soyisim giriniz..." onChange={(e) => setName(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                             
                             
                             <div className='flex items-start justify-center mt-4 gap-4 w-full'>
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>Telefon Numarası</h4>
-                                <input placeholder='Telefon numaranızı giriniz...' onChange={(e) => setPhone(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input required placeholder='Telefon numaranızı giriniz...' onChange={(e) => setPhone(e.target.value)} type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
 
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>Email</h4>
-                                <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Email adresinizi giriniz...' type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input required value={uemail} onChange={(e) => setUEmail(e.target.value)} placeholder='Email adresinizi giriniz...' type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
                             </div>
 
                             <div className='flex items-start justify-center mt-4 gap-4 w-full'>
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İl</h4>
-                                <input placeholder='İl bilgisini giriniz...' onChange={(e) => setProvince(e.target.value)}  type="text" className='h-10 rounded-md max-2xl:text-sm border-2 border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input required placeholder='İl bilgisini giriniz...' onChange={(e) => setProvince(e.target.value)}  type="text" className='h-10 rounded-md max-2xl:text-sm border-2 border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
 
                                 <div className='w-full'>
                                 <h4 className='font-semibold text-primary max-2xl:text-sm mb-2'>İlçe</h4>
-                                <input placeholder='İlçe bilgisini giriniz...' onChange={(e) => setDistrict(e.target.value)}  type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
+                                <input required placeholder='İlçe bilgisini giriniz...' onChange={(e) => setDistrict(e.target.value)}  type="text" className='h-10 border-2 max-2xl:text-sm rounded-md border-primary outline-none px-4 peer w-full mx-auto'/>
                                 </div>
                             </div>
 
                             <div className='w-full mt-4'>
                                 <h4 className='font-semibold max-2xl:text-sm text-primary mb-2'>Mahalle, Cadde/Sokak, Bina No</h4>
-                                <textarea onChange={(e) => setAddress(e.target.value)} placeholder='Mahalle, Cadde/Sokak, Bina No gibi bilgileri giriniz...' type="text" className='h-16 max-2xl:text-sm rounded-md border-2 border-primary outline-none px-4 w-full mx-auto'/>
+                                <textarea required onChange={(e) => setAddress(e.target.value)} placeholder='Mahalle, Cadde/Sokak, Bina No gibi bilgileri giriniz...' type="text" className='h-16 max-2xl:text-sm rounded-md border-2 border-primary outline-none px-4 w-full mx-auto'/>
                             </div>
 
                             
@@ -201,17 +255,17 @@ const index = ({userList}) => {
                         <div className='mt-6 flex flex-col gap-6'>
                         <label className=''>
                             <input type="checkbox" onChange={handleChange1} />
-                            <span className='text-sm max-2xl:text-xs font-medium'> <span className='font-semibold text-primary cursor-pointer'>Ön Bilgilendirme Formunu</span> ve 
+                            <span className={`text-sm ${checkedBox === true && "animate-pulse"} max-2xl:text-xs font-medium`}> <span className='font-semibold text-primary cursor-pointer'>Ön Bilgilendirme Formunu</span> ve 
                             <span onClick={() => push("/kvkk/mesafeli-satis")} className='font-semibold text-primary cursor-pointer'> Mesafeli Satış Sözleşmesini</span> kabul ediyorum.</span>
                         </label>
                         <label className=''>
                             <input type="checkbox" onChange={handleChange2} />
-                            <span className='text-sm max-2xl:text-xs font-medium'> <span className='font-semibold text-primary cursor-pointer'>Kullanıcı Sözleşmesi</span> ve 
+                            <span className={`text-sm ${checkedBox === true && "animate-pulse"} max-2xl:text-xs font-medium`}> <span className='font-semibold text-primary cursor-pointer'>Kullanıcı Sözleşmesi</span> ve 
                             <span onClick={() => push("/kvkk/gizlilik-sozlesmesi")} className='font-semibold text-primary cursor-pointer'> Gizlilik Sözleşmesini</span> Okudum ve kabul ediyorum.</span>
                         </label>
                         </div>
 
-                        <button className='button w-full mt-6'>{selectedRadio === "1" ? 'Siparişi Tamamla' : "Güvenli Ödeme"}</button>
+                        <button onClick={getPayment} className='button w-full mt-6'>{selectedRadio === "1" ? 'Siparişi Tamamla' : "Güvenli Ödeme"}</button>
                 </div>
             </div>
             </div>
