@@ -40,10 +40,6 @@ const index = () => {
                 teslimat ve fatura bilgilerini eksiksiz olarak girin.Sitemizde 128 bit SSL güvenlik sağlanmıştır. Bu sayede ödeme sayfamızda güvenle kredi kartı, ya da havale ile ödeme yapabilirsiniz. 
                 Arzu ettiğiniz ödeme şeklini seçtikten ve gerekli bilgileri doldurduktan sonra "SİPARİŞİ TAMAMLA" butonuna tıklayın. Alışverişinizin tamamlandığına dair onay mesajını gördüğünüzde 
                 alışverişiniz tamamlanmış olacak. Artık ürünlerinizin tedarik süreci başladı...</p>
-                <h2 className='font-semibold text-lg max-2xl:text-base mt-4 text-primary'>Ürünler Size Nasıl Gelecek?</h2>
-                <p className='font-medium max-2xl:text-sm text-slate-700 mt-4'>Tüm ürünlerimiz paketlenip adresinize kargolanacaktır. Ürünlerin kargoya verilme süresi stoklarımızda mevcut olan ürünler  
-                ortalama 2-3 iş günüdür, bazı ekstrem durumlarda bu süre uzayabilir, bu durumda arkadaşlarımız tarafından bilgilendirilirsiniz. Birden fazla ürün alsanız dahi tek bir koli 
-                alacaksınız. Ayrıca ₺100 ve üzeri alışverişlerinizde kargo ücreti de ödemeyeceksiniz.Şimdiden afiyet olsun!</p>
 
                 <p className='font-medium max-2xl:text-sm text-slate-700 mt-4'>Firma Adı</p>
 

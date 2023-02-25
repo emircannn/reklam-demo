@@ -39,8 +39,7 @@ const index = () => {
                 içerisinde kargoya verilmektedir. Bu süre sipariş verdiğiniz bölgenin, kargo süreleri ve mevsim koşulları nedeni ile nadiren de olsa değişiklik gösterebilir. Siparişinizde yer alan 
                 tüm ürünler tek bir kargo ile gönderilmektedir. Belirtilen adreste, herhangi bir hata gerçekleştiğinde, teslimatı gerçekleşemeyen siparişiniz ile ilgili sizlerle bağlantı kurulmaktadır. 
                 Teslimatın gerçekleşmesi konusunda gerek siz müşterilerimize gerekse kredi kartı sistemini kullandığımız bankaya karşı sorumluluğumuz söz konusudur. Alışverişleriniz her yönden güvence 
-                altındadır. Güvenle alışveriş yapabilirsiniz. Neden kapıda ödeme yok ? Bizim için ürünlerimizin size mükemmel şekilde ulaşması çok önemlidir. Gıda ürünlerinde uzun süreli kargo 
-                beklemelerinin yaşanması, ürün kalitesini olumsuz etkilemektedir.</p>
+                altındadır. Güvenle alışveriş yapabilirsiniz.</p>
 
                 <p className='font-medium max-2xl:text-sm text-slate-700 mt-4'>Maalesef kapıda ödeme sisteminde ödeme için alıcının müsait olmaması veya adreste bizzat bulunmaması gibi 
                 nedenlerle kargoların teslim edilememesi sonucu ortaya çıkabilmektedir. Bildiğiniz gibi tüm ürünlerimiz size özel gönderilir. Firma Adı olarak sizlere  taze ürün ulaştırma 

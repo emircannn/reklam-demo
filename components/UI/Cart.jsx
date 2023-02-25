@@ -47,7 +47,7 @@ const Cart = ({setCart, cart}) => {
     }, [cartTotal, settings])
 
     const goPayment = () => {
-      if(cartTotalEnd < settings[0]?.minwage ){
+      if(cartTotal < settings[0]?.minwage ){
         toast.error('Tutar, Min. Sepet Tutarının Altında!')
         return
       }else{

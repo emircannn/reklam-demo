@@ -34,6 +34,19 @@ const index = ({order}) => {
         }
     }
 
+    const downloadFile = (fileName) => {
+        const url = `${process.env.NEXT_PUBLIC_API_URL}/download?fileName=${fileName}`;
+        fetch(url)
+          .then((response) => response.blob())
+          .then((blob) => {
+            // Blob'u kullanarak dosyayı indirme
+            const downloadLink = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadLink;
+            a.download = fileName;
+            a.click();
+          });
+      };
     
 
   return (
@@ -64,7 +77,7 @@ const index = ({order}) => {
                     </div>
 
                     <div className={`flex ${product.path === null && "hidden"} items-end justify-end w-full h-full`}>
-                        {product.path && <button className='button'>Tasarımı İndir</button>}
+                        {product.path && <button onClick={() => downloadFile(product.path)} className='button'>Tasarımı İndir</button>}
                     </div>
                 </div>
                 ))}
@@ -122,7 +135,7 @@ const index = ({order}) => {
 
                 <h6 className='mt-4 font-semibold max-2xl:text-sm text-lg text-center'><span>{(order.total).toFixed(2)} TL</span></h6>
                 <h6 className='mt-4 font-semibold max-2xl:text-sm text-center'>Ödeme Yöntemi : <span>{order.method === 0 ? "Kredi/Banka Kartı" : "EFT/Havale"}</span></h6>
-                {order.method === 1 && <button className='button mt-4 w-full'>Dekontu İndir</button>}
+                {order.method === 1 && <button onClick={() => downloadFile(order.dekont)} className='button mt-4 w-full'>Dekontu İndir</button>}
         </div>
     </div>
     </section>

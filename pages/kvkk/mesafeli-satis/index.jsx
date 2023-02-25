@@ -157,7 +157,7 @@ const index = () => {
 
                 <p className='font-medium max-2xl:text-sm text-slate-700 mt-4'>Madde 12- Uyuşmazlık Durumunda Yetkili Mahkeme ve İcra Daireleriİşbu sözleşmenin uygulanmasından kaynaklanan uyuşmazlık halinde, 
                 Sanayi ve Ticaret Bakanlığınca her yıl Aralık ayında ilan edilen değere kadar Tüketici Hakem Heyetleri ile Alıcı’nın veya https://www.ornek.com' un yerleşim yerindeki Tüketici 
-                Mahkemeleri yetkilidir.Siparişin gerçekleşmesi durumunda Alıcı işbu sözleşmenin tüm koşullarını kabul etmiş sayılır. dmngida.com online shop sitesinden aldığınız ürünü, teslimat 
+                Mahkemeleri yetkilidir.Siparişin gerçekleşmesi durumunda Alıcı işbu sözleşmenin tüm koşullarını kabul etmiş sayılır. ornek.com online shop sitesinden aldığınız ürünü, teslimat 
                 tarihinden itibaren 14 iş günü içerisinde faturanız ile iade edebilir. aynı tutarda başka bir ürün ile değişim yapabilirsiniz.</p>
 
                 <p className='font-medium max-2xl:text-sm text-slate-700 mt-4'>Firma Adı</p>

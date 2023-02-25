@@ -91,7 +91,7 @@ const Header = () => {
         </nav>
 
         <Link href='/oturum/giris'>
-        <button className='button mt-12'>Giriş Yap</button>
+        <button className='button mt-12'>{session ? "Profil" : 'Giriş Yap'}</button>
         </Link>
         
         <button onClick={() => setMenu(false)} className='bg-primary p-2 absolute top-2 right-2'><AiOutlineClose className='text-white' size={20}/></button>
