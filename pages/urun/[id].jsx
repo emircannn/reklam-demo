@@ -55,7 +55,13 @@ const index = ({product, category}) => {
         if(product.price){
             setWage(priceName.price + (printName ? printName.afprice : 0) + (selectedRadio === "0" ? settings[0]?.designWage : 0))  
         }else{
-            setAmount(priceName.price*(width/100)*(height/100) + (printName.afprice) + (selectedRadio === "0" ? settings[0]?.designWage : 0)) 
+            if (height < 0 || width < 0){
+                toast.error("Geçersiz Ebat Bilgisi!", {autoClose: 1000})
+                return
+            }
+            else{
+                setAmount(priceName.price*(width/100)*(height/100) + (printName.afprice) + (selectedRadio === "0" ? settings[0]?.designWage : 0)) 
+            }
         }
     }
 
@@ -68,7 +74,11 @@ const index = ({product, category}) => {
             if(height === 0 && width === 0){
                 toast.error("Lütfen Ebat Bilgilerini Girin!", {autoClose: 1000})
                 return
-            }else if(product.isDesign === false && selectedRadio === "1"){
+            }else if (height < 0 || width < 0){
+                toast.error("Geçersiz Ebat Bilgisi!", {autoClose: 1000})
+                return
+            }
+            else if(product.isDesign === false && selectedRadio === "1"){
                 if(filePath === null){
                     toast.error("Lütfen Tasarımınızı Yükleyin!", {autoClose: 1000})
                     return

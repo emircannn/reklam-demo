@@ -12,6 +12,7 @@ import Product from '@/components/admin/Product';
 import Categories from '@/components/admin/Categories';
 import { AiFillSetting } from 'react-icons/ai';
 import Settings from '@/components/admin/Settings';
+import Orders from '@/components/admin/Orders';
 
 
 const Profil = () => {
@@ -76,6 +77,7 @@ const Profil = () => {
         <div className='w-[80%] max-md:w-full max-lg:w-[70%]'>
             {tab === 0 && <Product/>}
             {tab === 1 && <Categories/>}
+            {tab === 2 && <Orders/>}
             {tab === 3 && <Settings/>}
             
         </div>

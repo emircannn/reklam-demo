@@ -33,7 +33,7 @@ html::--webkit-scrollbar-thumb{
    
 
   .button {
-   @apply px-4 py-2 bg-primary max-2xl:px-3 max-2xl:py-2 max-2xl:text-sm text-white font-semibold hover:bg-black duration-300;
+   @apply px-4 py-2 bg-primary max-2xl:px-3 max-2xl:py-2 max-2xl:text-sm max-sm:text-[12px] text-white font-semibold hover:bg-black duration-300;
  }
 
 }

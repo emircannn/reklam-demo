@@ -8,7 +8,7 @@ const Hero = () => {
         <div className='w-full h-[calc(100vh_-_89px)] overflow-x-hidden relative'>
            <Image src='/images/hero.jpg' alt='' width={5000} height={5000} priority className='w-full h-full object-cover'/>
 
-           <div className='top-0 left-0 absolute h-full w-full bg-black/40'>
+           <div className='top-0 left-0 absolute h-full w-full bg-black/70'>
               <div className='h-full w-1/2 flex flex-col px-32 max-lg:px-12 max-xl:px-16 max-xl:w-2/3 items-start justify-center max-lg:gap-4 gap-8 max-lg:w-full'>
                 <h2 className='text-white font-bold text-4xl max-2xl:text-2xl max-lg:text-xl uppercase tracking-wide stroke-black'>Demo Matbaa & Reklam Sitesi</h2>
                 <p className='text-white/80 font-semibold max-2xl:text-base max-lg:text-sm text-lg'>Firmamız, Tabela Reklam ve Baskı Hizmetleri konusunda uzman bir ekibe sahiptir. 

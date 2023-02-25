@@ -38,15 +38,6 @@ const index = ({userList}) => {
     const cartItems = useSelector((state) =>  state.cartSlice.products)
     const cartTotal = useSelector((state) =>  state.cartSlice.total)
 
-    useEffect(() => {
-        if(session ===null) {
-            push("/");
-        }else{
-            if(cartItems.length === 0 && cartTotalEnd < settings[0]?.minwage){
-                push("/");
-            }
-        }
-    }, [session, push, cartItems.length, cartTotalEnd, settings])
 
     useEffect(() => {
       const getSettings = async () => {
@@ -132,7 +123,8 @@ const index = ({userList}) => {
     method: selectedRadio === "0" ? 0 : 1,
     dekont: filePath,
     shipping: null,
-    shipping_code: null
+    shipping_code: null,
+    isAccept: 0
   }
 
 
@@ -153,6 +145,7 @@ const index = ({userList}) => {
           try {
             const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/prorders`, order)
             if (res.status === 200) {
+              await push('odeme/basarili')
               toast.success("İşlem Başarılı", {autoClose: 1000})
               dispatch(reset())
             }
@@ -167,6 +160,16 @@ const index = ({userList}) => {
       }
     }
   }
+
+  useEffect(() => {
+    if(session ===null) {
+        push("/");
+    }else{
+        if(cartItems.length === 0 && cartTotalEnd < settings[0]?.minwage){
+            push("/");
+        }
+    }
+}, [session, push, cartItems.length, cartTotalEnd, settings])
 
   return (
     <React.Fragment>
@@ -221,7 +224,7 @@ const index = ({userList}) => {
                             </input> Kredi/Banka Kartı
                         </label>
                         <label className='font-semibold border-2 text-ellipsis whitespace-pre-line max-sm:text-[12px] !select-text rounded-md border-slate-400 p-4 w-full max-2xl:text-sm text-black/75' htmlFor="option2">
-                            <input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> EFT/Havale - Halk Bankası - TR330006100519786457841326</label>
+                            <input type="radio" name="option" value="1" onChange={handleOptionChange} checked={selectedRadio === "1"} id="option2"></input> EFT/Havale - {settings[0]?.bank} - {settings[0]?.iban}</label>
                         </div>
                     
                             

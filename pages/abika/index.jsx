@@ -62,7 +62,7 @@ const Admin = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
         <form onSubmit={handleSubmit} className="flex flex-col h-full items-center justify-center max-lg:w-full w-1/2 mx-auto">
-        <h3 className='font-dancing text-primary text-[40px] font-bold'>Admin Giriş</h3>
+        <h3 className='font-dancing text-primary text-[40px] max-2xl:text-base font-medium uppercase'>Admin Giriş</h3>
 
         <div className="flex flex-col gap-2 my-4 w-full"> 
             

@@ -1,19 +1,11 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import { useSession } from 'next-auth/react';
 import Image from 'next/image'
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 const basarili = () => {
 
-    const { data: session } = useSession();
-    const { push } = useRouter();
+  const {push} = useRouter() 
 
-    useEffect(() => {
-        if(session ===null) {
-            push("/")
-        }
-    }, [session, push])
   return (
     <section className='w-full h-screen flex items-center justify-center flex-col gap-4'>
         <h1 className='text-primary font-semibold uppercase text-xl text-center max-2xl:text-lg tracking-widest'>Siparişiniz Başarıyla oluştutuldu.</h1>

@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Hesap from '@/components/profil/Hesap';
+import UserOrders from '@/components/profil/UserOrders';
 import axios from 'axios'
 import { signOut, useSession } from 'next-auth/react';
 import Head from 'next/head';
@@ -66,6 +67,7 @@ const Index = ({user}) => {
 
         </div>
             {tabs === 0 && <Hesap user={user}/>}
+            {tabs === 1 && <UserOrders user={user}/>}
         </section>
         <Footer/>
     </React.Fragment>

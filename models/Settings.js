@@ -24,6 +24,12 @@ const SettingsSchema = new mongoose.Schema(
         email: {
             type: String
         },
+        bank : {
+            type: String
+        },
+        iban : {
+            type: String
+        },
     }
 )
 

@@ -5,6 +5,7 @@ import Input from '@/components/UI/Input'
 import { registerSchema } from '@/schema/register'
 import axios from 'axios'
 import { useFormik } from 'formik'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -81,7 +82,11 @@ const kayit = () => {
     ]
 
   return (
-    <div><Header/>
+    <React.Fragment>
+      <Head>
+      <title>Kayıt Ol</title>
+      </Head>
+      <Header/>
     <section className='min-h-[calc(100vh_-_349px)] flex items-center justify-center w-full max-md:my-16'>
         <form onSubmit={handleSubmit} className='w-[50%] px-32 max-md:w-full max-lg:px-16'>
             <h2 className='text-2xl font-bold uppercase text-primary text-center mb-8'>Kayıt Ol</h2>
@@ -107,7 +112,7 @@ const kayit = () => {
               </div>
             </div>
     </section>
-    <Footer/></div>
+    <Footer/></React.Fragment>
   )
 }
 

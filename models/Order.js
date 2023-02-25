@@ -48,8 +48,11 @@ const OrderSchema = new mongoose.Schema(
         shipping_code: {
             type: String,
             default: null,
+        },
+        isAccept:{
+            type: Number,
+            default: 0
         }
-
     },
     {timestamps: true}
 );

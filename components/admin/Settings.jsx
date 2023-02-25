@@ -8,13 +8,15 @@ const Settings = () => {
     const router = useRouter()
 
     const [settings, setSettings] = useState([])
-    const [shippingWage, setShippingWage] = useState(0)
-    const [designWage, setDesignWage] = useState(0)
-    const [freeShipping, setFreeShipping] = useState(0)
-    const [minwage, setMinwage] = useState(0)
-    const [address, setAddres] = useState("")
-    const [email, SetEmail] = useState("")
-    const [phone, setPhone] = useState("")
+    const [shippingWage, setShippingWage] = useState(settings[0]?.shippingWage)
+    const [designWage, setDesignWage] = useState(settings[0]?.designWage)
+    const [freeShipping, setFreeShipping] = useState(settings[0]?.freeShipping)
+    const [minwage, setMinwage] = useState(settings[0]?.minwage)
+    const [address, setAddres] = useState(settings[0]?.address)
+    const [email, setEmail] = useState(settings[0]?.email)
+    const [phone, setPhone] = useState(settings[0]?.phone)
+    const [bank, setBank] = useState(settings[0]?.bank)
+    const [iban, setIban] = useState(settings[0]?.iban)
     
     useEffect(() => {
       const getSettings = async() => {
@@ -112,6 +114,30 @@ const Settings = () => {
             console.log(err)
         }
     }
+    const handleBank = async(id) => {
+        try {
+            const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/settings/${id}`, {bank: bank})
+            if(res.status === 200) {
+                toast.success("İşlem Başarılı!")
+                setSettings([res.data, ...settings.filter((setting) => setting._id !== id)])
+                router.reload()
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
+    const handleIban = async(id) => {
+        try {
+            const res = await axios.put(`${process.env.NEXT_PUBLIC_API_URL}/settings/${id}`, {iban: iban})
+            if(res.status === 200) {
+                toast.success("İşlem Başarılı!")
+                setSettings([res.data, ...settings.filter((setting) => setting._id !== id)])
+                router.reload()
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
 
   return (
@@ -151,10 +177,22 @@ const Settings = () => {
         <input onChange={(e) => setPhone(e.target.value)} placeholder={setting.phone} type="text" className="h-10 w-full border-2 border-primary outline-none px-4 peer"/>
         <button onClick={() => handlePhone(setting._id)} className='button w-full'>Güncelle</button>
         </div>
+
         <h3 className='text-lg max-2xl:text-sm font-semibold my-2 text-primary'>Email</h3>
         <div className='flex items-center justify-center w-full gap-4'>
-        <input onChange={(e) => SetEmail(e.target.value)} placeholder={setting.email} type="email" className="h-10 w-full border-2 border-primary outline-none px-4 peer"/>
+        <input onChange={(e) => setEmail(e.target.value)} placeholder={setting.email} type="email" className="h-10 w-full border-2 border-primary outline-none px-4 peer"/>
         <button onClick={() => handleEmail(setting._id)} className='button w-full'>Güncelle</button>
+        </div>
+
+        <h3 className='text-lg max-2xl:text-sm font-semibold my-2 text-primary'>Banka Adı</h3>
+        <div className='flex items-center justify-center w-full gap-4'>
+        <input onChange={(e) => setBank(e.target.value)} placeholder={setting.bank} type="text" className="h-10 w-full border-2 border-primary outline-none px-4 peer"/>
+        <button onClick={() => handleBank(setting._id)} className='button w-full'>Güncelle</button>
+        </div>
+        <h3 className='text-lg max-2xl:text-sm font-semibold my-2 text-primary'>IBAN</h3>
+        <div className='flex items-center justify-center w-full gap-4'>
+        <input onChange={(e) => setIban(e.target.value)} placeholder={setting.iban} type="text" className="h-10 w-full border-2 border-primary outline-none px-4 peer"/>
+        <button onClick={() => handleIban(setting._id)} className='button w-full'>Güncelle</button>
         </div>
 
     </div>

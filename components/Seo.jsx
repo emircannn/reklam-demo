@@ -34,13 +34,13 @@ const Seo = () => {
             </div>
 
             <div className='w-1/2 max-xl:w-full flex items-center justify-center shadow-xl'>
-                <Image alt='' src='/images/tabela.png' priority width={1500} height={1500} className='w-full object-contain'/>
+                <Image alt='' src='/images/tabela.jpg' priority width={1500} height={1500} className='w-full object-contain rounded-lg'/>
             </div>
         </div>
 
         <div className='w-full flex max-xl:flex-col items-center justify-center max-md:mt-8 mt-16 max-md:gap-4 gap-16'>
         <div className='w-1/2 max-xl:w-full flex items-center justify-center shadow-xl'>
-                <Image alt='' src='/images/bilbord.png' priority width={1500} height={1500} className='w-full object-contain'/>
+                <Image alt='' src='/images/bilbord.jpg' priority width={1500} height={1500} className='w-full object-contain rounded-lg'/>
             </div>
             <div className='w-1/2 max-xl:w-full'>
             <h1 className='text-primary font-bold max-2xl:text-lg text-2xl text-right mb-4 max-md:my-4 uppercase tracking-wide'>İşletmeler İçin Tabelanın Önemi</h1>

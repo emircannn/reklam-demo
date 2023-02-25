@@ -6,6 +6,7 @@ import { loginSchema } from '@/schema/login'
 import axios from 'axios'
 import { useFormik } from 'formik'
 import { getSession, signIn, useSession } from 'next-auth/react'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -79,7 +80,10 @@ const inputs = [
 ];
 
   return (
-    <div>
+    <React.Fragment>
+      <Head>
+      <title>Giriş Yap</title>
+      </Head>
         <Header/>
         <section className='min-h-[calc(100vh_-_349px)] flex items-center justify-center w-full max-md:my-16'>
             <form onSubmit={handleSubmit} className='w-[50%] px-32 max-md:w-full max-lg:px-16'>
@@ -109,7 +113,7 @@ const inputs = [
             </div>
         </section>
         <Footer/>
-    </div>
+    </React.Fragment>
   )
 }
 
