@@ -18,8 +18,8 @@ const index = () => {
                 <h1 className='font-bold text-primary tracking-wide text-4xl max-2xl:text-2xl uppercase'>İletişim</h1>
                         <div className='flex items-center text-slate-800 font-bold gap-2'>
                         <HiLocationMarker className='text-primary' size={40}/>
-                        <Link href='https://goo.gl/maps/NZcZx38HNf6hERCLA'>
-                        <span className='text-slate-800 font-bold hover:text-primary duration-300 cursor-pointer max-2xl:text-lg text-xl uppercase'>Yazlık, Vatan Mah. 4229. Sk. No:9, Serdivan Sakarya</span>
+                        <Link href=''>
+                        <span className='text-slate-800 font-bold hover:text-primary duration-300 cursor-pointer max-2xl:text-lg text-xl uppercase'>Örnek Adres</span>
                         </Link>
                         </div>
                         <div className='flex items-center text-slate-800 font-bold gap-2 ml-2'>
